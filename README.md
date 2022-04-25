@@ -4,7 +4,7 @@ This is just a small collection of util/helper scripts to help me with embedded 
 Let me know if you have some proposals or code improvements
 
 #### Scripts Available
-- C bit array generator (8/16/32/64/128-bit): [`c-bit-arr-generator`](https://github.com/moonxraccoon/embedded-util-scripts/blob/main/c-bit-arr-generator.py)
+- C bit array generator (8/16/32/64/128-bit): [`c-bit-arr-generator`](https://github.com/moonxraccoon/embedded-util-scripts/blob/main/c-bit-arr-generator.py)  
 Usage:
 ```bash
 # create 64-bit bit array
