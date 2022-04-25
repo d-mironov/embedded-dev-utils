@@ -19,9 +19,9 @@ if (bitsize not in bitsizes):
 f1 = open("out.c", "w")
 f1.write("#include <stdint.h>\n\n")
 f1.write(f"uint{bitsize}_t bit[{bitsize}] = {{\n\t")
-f1.write("(1 << 0), ")
+f1.write("(1 << 0),\t")
 for i in range(1, bitsize):
-    f1.write(("\n\t" if i % 8 == 0 else "") + f"(1 << {i}), ")
+    f1.write(("\n\t" if i % 8 == 0 else "") + f"(1 << {i}),\t")
 f1.write("\n};\n")
 
 f1.close()
