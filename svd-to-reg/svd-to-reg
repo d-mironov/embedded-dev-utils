@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+"""
+Copyright (c)<2022> Daniel Mironow
+
+Simple script to create a .h and .cpp file for my register abstraction class
+"""
+from cmsis_svd.parser import SVDParser
+import sys
+
+if len(sys.argv) != 3:
+    print("Usage:\n")
+    print("\t./svd-to-reg <manufacturer> <device>")
+    exit(1)
+
+manufacturer: str = sys.argv[1]
+device: str = sys.argv[2]
+
+try:
+    parser = SVDParser.for_packaged_svd(manufacturer, device + ".svd")
+except FileNotFoundError:
+    print("SVD file not found.")
+    print("Check included files on https://github.com/posborne/cmsis-svd/tree/master/data")
+    print("\nUsage:\n")
+    print("\t./svd-to-reg <manufacturer> <device>")
+    exit(1)
+
+with open("stm32f411.h", "w") as header, open("stm32f411.cpp", "w") as source:
+    source.write('#include "register.h"\n')
+    source.write('#include "stm32f411.h"\n\n')
+    header.write('#include "register.h"\n\n')
+    header.write("namespace stm32f4 {\n")
+    header.write("\tnamespace regs {\n")
+    # iterate through all perioperals
+    for peripheral in parser.get_device().peripherals:
+        source.write(f"/*\n * {peripheral.name}\n */\n")
+        header.write("\t\tnamespace %s {\n" % peripheral.name.lower())
+        # iterate through all register of the peripheral and add to .h
+        for reg in peripheral.registers:
+            source.write("Field<32> stm32f4::regs::%s::%s(0x%08x);\n" % (
+                    peripheral.name.lower(),
+                    reg.name,
+                    peripheral.base_address + reg.address_offset
+                )
+            )
+            header.write("\t\t\textern Field<32> %s;\n" % (reg.name))
+        header.write("\t\t};\n")
+    header.write("\t};\n};")
+
+print("[+] Done")
