@@ -1,853 +1,805 @@
 #include "register.h"
 #include "stm32f411.h"
 
-/*
- * ADC_Common
- */
-Field<32> stm32f4::regs::adc_common::CSR(0x40012300);
-Field<32> stm32f4::regs::adc_common::CCR(0x40012304);
-/*
- * ADC1
- */
-Field<32> stm32f4::regs::adc1::SR(0x40012000);
-Field<32> stm32f4::regs::adc1::CR1(0x40012004);
-Field<32> stm32f4::regs::adc1::CR2(0x40012008);
-Field<32> stm32f4::regs::adc1::SMPR1(0x4001200c);
-Field<32> stm32f4::regs::adc1::SMPR2(0x40012010);
-Field<32> stm32f4::regs::adc1::JOFR1(0x40012014);
-Field<32> stm32f4::regs::adc1::JOFR2(0x40012018);
-Field<32> stm32f4::regs::adc1::JOFR3(0x4001201c);
-Field<32> stm32f4::regs::adc1::JOFR4(0x40012020);
-Field<32> stm32f4::regs::adc1::HTR(0x40012024);
-Field<32> stm32f4::regs::adc1::LTR(0x40012028);
-Field<32> stm32f4::regs::adc1::SQR1(0x4001202c);
-Field<32> stm32f4::regs::adc1::SQR2(0x40012030);
-Field<32> stm32f4::regs::adc1::SQR3(0x40012034);
-Field<32> stm32f4::regs::adc1::JSQR(0x40012038);
-Field<32> stm32f4::regs::adc1::JDR1(0x4001203c);
-Field<32> stm32f4::regs::adc1::JDR2(0x40012040);
-Field<32> stm32f4::regs::adc1::JDR3(0x40012044);
-Field<32> stm32f4::regs::adc1::JDR4(0x40012048);
-Field<32> stm32f4::regs::adc1::DR(0x4001204c);
-/*
- * CRC
- */
-Field<32> stm32f4::regs::crc::DR(0x40023000);
-Field<32> stm32f4::regs::crc::IDR(0x40023004);
-Field<32> stm32f4::regs::crc::CR(0x40023008);
-/*
- * DBG
- */
-Field<32> stm32f4::regs::dbg::DBGMCU_IDCODE(0xe0042000);
-Field<32> stm32f4::regs::dbg::DBGMCU_CR(0xe0042004);
-Field<32> stm32f4::regs::dbg::DBGMCU_APB1_FZ(0xe0042008);
-Field<32> stm32f4::regs::dbg::DBGMCU_APB2_FZ(0xe004200c);
-/*
- * EXTI
- */
-Field<32> stm32f4::regs::exti::IMR(0x40013c00);
-Field<32> stm32f4::regs::exti::EMR(0x40013c04);
-Field<32> stm32f4::regs::exti::RTSR(0x40013c08);
-Field<32> stm32f4::regs::exti::FTSR(0x40013c0c);
-Field<32> stm32f4::regs::exti::SWIER(0x40013c10);
-Field<32> stm32f4::regs::exti::PR(0x40013c14);
-/*
- * FLASH
- */
-Field<32> stm32f4::regs::flash::ACR(0x40023c00);
-Field<32> stm32f4::regs::flash::KEYR(0x40023c04);
-Field<32> stm32f4::regs::flash::OPTKEYR(0x40023c08);
-Field<32> stm32f4::regs::flash::SR(0x40023c0c);
-Field<32> stm32f4::regs::flash::CR(0x40023c10);
-Field<32> stm32f4::regs::flash::OPTCR(0x40023c14);
-/*
- * IWDG
- */
-Field<32> stm32f4::regs::iwdg::KR(0x40003000);
-Field<32> stm32f4::regs::iwdg::PR(0x40003004);
-Field<32> stm32f4::regs::iwdg::RLR(0x40003008);
-Field<32> stm32f4::regs::iwdg::SR(0x4000300c);
-/*
- * OTG_FS_DEVICE
- */
-Field<32> stm32f4::regs::otg_fs_device::FS_DCFG(0x50000800);
-Field<32> stm32f4::regs::otg_fs_device::FS_DCTL(0x50000804);
-Field<32> stm32f4::regs::otg_fs_device::FS_DSTS(0x50000808);
-Field<32> stm32f4::regs::otg_fs_device::FS_DIEPMSK(0x50000810);
-Field<32> stm32f4::regs::otg_fs_device::FS_DOEPMSK(0x50000814);
-Field<32> stm32f4::regs::otg_fs_device::FS_DAINT(0x50000818);
-Field<32> stm32f4::regs::otg_fs_device::FS_DAINTMSK(0x5000081c);
-Field<32> stm32f4::regs::otg_fs_device::DVBUSDIS(0x50000828);
-Field<32> stm32f4::regs::otg_fs_device::DVBUSPULSE(0x5000082c);
-Field<32> stm32f4::regs::otg_fs_device::DIEPEMPMSK(0x50000834);
-Field<32> stm32f4::regs::otg_fs_device::FS_DIEPCTL0(0x50000900);
-Field<32> stm32f4::regs::otg_fs_device::DIEPCTL1(0x50000920);
-Field<32> stm32f4::regs::otg_fs_device::DIEPCTL2(0x50000940);
-Field<32> stm32f4::regs::otg_fs_device::DIEPCTL3(0x50000960);
-Field<32> stm32f4::regs::otg_fs_device::DOEPCTL0(0x50000b00);
-Field<32> stm32f4::regs::otg_fs_device::DOEPCTL1(0x50000b20);
-Field<32> stm32f4::regs::otg_fs_device::DOEPCTL2(0x50000b40);
-Field<32> stm32f4::regs::otg_fs_device::DOEPCTL3(0x50000b60);
-Field<32> stm32f4::regs::otg_fs_device::DIEPINT0(0x50000908);
-Field<32> stm32f4::regs::otg_fs_device::DIEPINT1(0x50000928);
-Field<32> stm32f4::regs::otg_fs_device::DIEPINT2(0x50000948);
-Field<32> stm32f4::regs::otg_fs_device::DIEPINT3(0x50000968);
-Field<32> stm32f4::regs::otg_fs_device::DOEPINT0(0x50000b08);
-Field<32> stm32f4::regs::otg_fs_device::DOEPINT1(0x50000b28);
-Field<32> stm32f4::regs::otg_fs_device::DOEPINT2(0x50000b48);
-Field<32> stm32f4::regs::otg_fs_device::DOEPINT3(0x50000b68);
-Field<32> stm32f4::regs::otg_fs_device::DIEPTSIZ0(0x50000910);
-Field<32> stm32f4::regs::otg_fs_device::DOEPTSIZ0(0x50000b10);
-Field<32> stm32f4::regs::otg_fs_device::DIEPTSIZ1(0x50000930);
-Field<32> stm32f4::regs::otg_fs_device::DIEPTSIZ2(0x50000950);
-Field<32> stm32f4::regs::otg_fs_device::DIEPTSIZ3(0x50000970);
-Field<32> stm32f4::regs::otg_fs_device::DTXFSTS0(0x50000918);
-Field<32> stm32f4::regs::otg_fs_device::DTXFSTS1(0x50000938);
-Field<32> stm32f4::regs::otg_fs_device::DTXFSTS2(0x50000958);
-Field<32> stm32f4::regs::otg_fs_device::DTXFSTS3(0x50000978);
-Field<32> stm32f4::regs::otg_fs_device::DOEPTSIZ1(0x50000b30);
-Field<32> stm32f4::regs::otg_fs_device::DOEPTSIZ2(0x50000b50);
-Field<32> stm32f4::regs::otg_fs_device::DOEPTSIZ3(0x50000b70);
-/*
- * OTG_FS_GLOBAL
- */
-Field<32> stm32f4::regs::otg_fs_global::FS_GOTGCTL(0x50000000);
-Field<32> stm32f4::regs::otg_fs_global::FS_GOTGINT(0x50000004);
-Field<32> stm32f4::regs::otg_fs_global::FS_GAHBCFG(0x50000008);
-Field<32> stm32f4::regs::otg_fs_global::FS_GUSBCFG(0x5000000c);
-Field<32> stm32f4::regs::otg_fs_global::FS_GRSTCTL(0x50000010);
-Field<32> stm32f4::regs::otg_fs_global::FS_GINTSTS(0x50000014);
-Field<32> stm32f4::regs::otg_fs_global::FS_GINTMSK(0x50000018);
-Field<32> stm32f4::regs::otg_fs_global::FS_GRXSTSR_Device(0x5000001c);
-Field<32> stm32f4::regs::otg_fs_global::FS_GRXSTSR_Host(0x5000001c);
-Field<32> stm32f4::regs::otg_fs_global::FS_GRXFSIZ(0x50000024);
-Field<32> stm32f4::regs::otg_fs_global::FS_GNPTXFSIZ_Device(0x50000028);
-Field<32> stm32f4::regs::otg_fs_global::FS_GNPTXFSIZ_Host(0x50000028);
-Field<32> stm32f4::regs::otg_fs_global::FS_GNPTXSTS(0x5000002c);
-Field<32> stm32f4::regs::otg_fs_global::FS_GCCFG(0x50000038);
-Field<32> stm32f4::regs::otg_fs_global::FS_CID(0x5000003c);
-Field<32> stm32f4::regs::otg_fs_global::FS_HPTXFSIZ(0x50000100);
-Field<32> stm32f4::regs::otg_fs_global::FS_DIEPTXF1(0x50000104);
-Field<32> stm32f4::regs::otg_fs_global::FS_DIEPTXF2(0x50000108);
-Field<32> stm32f4::regs::otg_fs_global::FS_DIEPTXF3(0x5000010c);
-/*
- * OTG_FS_HOST
- */
-Field<32> stm32f4::regs::otg_fs_host::FS_HCFG(0x50000400);
-Field<32> stm32f4::regs::otg_fs_host::HFIR(0x50000404);
-Field<32> stm32f4::regs::otg_fs_host::FS_HFNUM(0x50000408);
-Field<32> stm32f4::regs::otg_fs_host::FS_HPTXSTS(0x50000410);
-Field<32> stm32f4::regs::otg_fs_host::HAINT(0x50000414);
-Field<32> stm32f4::regs::otg_fs_host::HAINTMSK(0x50000418);
-Field<32> stm32f4::regs::otg_fs_host::FS_HPRT(0x50000440);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCCHAR0(0x50000500);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCCHAR1(0x50000520);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCCHAR2(0x50000540);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCCHAR3(0x50000560);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCCHAR4(0x50000580);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCCHAR5(0x500005a0);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCCHAR6(0x500005c0);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCCHAR7(0x500005e0);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINT0(0x50000508);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINT1(0x50000528);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINT2(0x50000548);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINT3(0x50000568);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINT4(0x50000588);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINT5(0x500005a8);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINT6(0x500005c8);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINT7(0x500005e8);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINTMSK0(0x5000050c);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINTMSK1(0x5000052c);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINTMSK2(0x5000054c);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINTMSK3(0x5000056c);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINTMSK4(0x5000058c);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINTMSK5(0x500005ac);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINTMSK6(0x500005cc);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCINTMSK7(0x500005ec);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCTSIZ0(0x50000510);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCTSIZ1(0x50000530);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCTSIZ2(0x50000550);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCTSIZ3(0x50000570);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCTSIZ4(0x50000590);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCTSIZ5(0x500005b0);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCTSIZ6(0x500005d0);
-Field<32> stm32f4::regs::otg_fs_host::FS_HCTSIZ7(0x500005f0);
-/*
- * OTG_FS_PWRCLK
- */
-Field<32> stm32f4::regs::otg_fs_pwrclk::FS_PCGCCTL(0x50000e00);
-/*
- * PWR
- */
-Field<32> stm32f4::regs::pwr::CR(0x40007000);
-Field<32> stm32f4::regs::pwr::CSR(0x40007004);
-/*
- * RCC
- */
-Field<32> stm32f4::regs::rcc::CR(0x40023800);
-Field<32> stm32f4::regs::rcc::PLLCFGR(0x40023804);
-Field<32> stm32f4::regs::rcc::CFGR(0x40023808);
-Field<32> stm32f4::regs::rcc::CIR(0x4002380c);
-Field<32> stm32f4::regs::rcc::AHB1RSTR(0x40023810);
-Field<32> stm32f4::regs::rcc::AHB2RSTR(0x40023814);
-Field<32> stm32f4::regs::rcc::APB1RSTR(0x40023820);
-Field<32> stm32f4::regs::rcc::APB2RSTR(0x40023824);
-Field<32> stm32f4::regs::rcc::AHB1ENR(0x40023830);
-Field<32> stm32f4::regs::rcc::AHB2ENR(0x40023834);
-Field<32> stm32f4::regs::rcc::APB1ENR(0x40023840);
-Field<32> stm32f4::regs::rcc::APB2ENR(0x40023844);
-Field<32> stm32f4::regs::rcc::AHB1LPENR(0x40023850);
-Field<32> stm32f4::regs::rcc::AHB2LPENR(0x40023854);
-Field<32> stm32f4::regs::rcc::APB1LPENR(0x40023860);
-Field<32> stm32f4::regs::rcc::APB2LPENR(0x40023864);
-Field<32> stm32f4::regs::rcc::BDCR(0x40023870);
-Field<32> stm32f4::regs::rcc::CSR(0x40023874);
-Field<32> stm32f4::regs::rcc::SSCGR(0x40023880);
-Field<32> stm32f4::regs::rcc::PLLI2SCFGR(0x40023884);
-/*
- * RTC
- */
-Field<32> stm32f4::regs::rtc::TR(0x40002800);
-Field<32> stm32f4::regs::rtc::DR(0x40002804);
-Field<32> stm32f4::regs::rtc::CR(0x40002808);
-Field<32> stm32f4::regs::rtc::ISR(0x4000280c);
-Field<32> stm32f4::regs::rtc::PRER(0x40002810);
-Field<32> stm32f4::regs::rtc::WUTR(0x40002814);
-Field<32> stm32f4::regs::rtc::CALIBR(0x40002818);
-Field<32> stm32f4::regs::rtc::ALRMAR(0x4000281c);
-Field<32> stm32f4::regs::rtc::ALRMBR(0x40002820);
-Field<32> stm32f4::regs::rtc::WPR(0x40002824);
-Field<32> stm32f4::regs::rtc::SSR(0x40002828);
-Field<32> stm32f4::regs::rtc::SHIFTR(0x4000282c);
-Field<32> stm32f4::regs::rtc::TSTR(0x40002830);
-Field<32> stm32f4::regs::rtc::TSDR(0x40002834);
-Field<32> stm32f4::regs::rtc::TSSSR(0x40002838);
-Field<32> stm32f4::regs::rtc::CALR(0x4000283c);
-Field<32> stm32f4::regs::rtc::TAFCR(0x40002840);
-Field<32> stm32f4::regs::rtc::ALRMASSR(0x40002844);
-Field<32> stm32f4::regs::rtc::ALRMBSSR(0x40002848);
-Field<32> stm32f4::regs::rtc::BKP0R(0x40002850);
-Field<32> stm32f4::regs::rtc::BKP1R(0x40002854);
-Field<32> stm32f4::regs::rtc::BKP2R(0x40002858);
-Field<32> stm32f4::regs::rtc::BKP3R(0x4000285c);
-Field<32> stm32f4::regs::rtc::BKP4R(0x40002860);
-Field<32> stm32f4::regs::rtc::BKP5R(0x40002864);
-Field<32> stm32f4::regs::rtc::BKP6R(0x40002868);
-Field<32> stm32f4::regs::rtc::BKP7R(0x4000286c);
-Field<32> stm32f4::regs::rtc::BKP8R(0x40002870);
-Field<32> stm32f4::regs::rtc::BKP9R(0x40002874);
-Field<32> stm32f4::regs::rtc::BKP10R(0x40002878);
-Field<32> stm32f4::regs::rtc::BKP11R(0x4000287c);
-Field<32> stm32f4::regs::rtc::BKP12R(0x40002880);
-Field<32> stm32f4::regs::rtc::BKP13R(0x40002884);
-Field<32> stm32f4::regs::rtc::BKP14R(0x40002888);
-Field<32> stm32f4::regs::rtc::BKP15R(0x4000288c);
-Field<32> stm32f4::regs::rtc::BKP16R(0x40002890);
-Field<32> stm32f4::regs::rtc::BKP17R(0x40002894);
-Field<32> stm32f4::regs::rtc::BKP18R(0x40002898);
-Field<32> stm32f4::regs::rtc::BKP19R(0x4000289c);
-/*
- * SDIO
- */
-Field<32> stm32f4::regs::sdio::POWER(0x40012c00);
-Field<32> stm32f4::regs::sdio::CLKCR(0x40012c04);
-Field<32> stm32f4::regs::sdio::ARG(0x40012c08);
-Field<32> stm32f4::regs::sdio::CMD(0x40012c0c);
-Field<32> stm32f4::regs::sdio::RESPCMD(0x40012c10);
-Field<32> stm32f4::regs::sdio::RESP1(0x40012c14);
-Field<32> stm32f4::regs::sdio::RESP2(0x40012c18);
-Field<32> stm32f4::regs::sdio::RESP3(0x40012c1c);
-Field<32> stm32f4::regs::sdio::RESP4(0x40012c20);
-Field<32> stm32f4::regs::sdio::DTIMER(0x40012c24);
-Field<32> stm32f4::regs::sdio::DLEN(0x40012c28);
-Field<32> stm32f4::regs::sdio::DCTRL(0x40012c2c);
-Field<32> stm32f4::regs::sdio::DCOUNT(0x40012c30);
-Field<32> stm32f4::regs::sdio::STA(0x40012c34);
-Field<32> stm32f4::regs::sdio::ICR(0x40012c38);
-Field<32> stm32f4::regs::sdio::MASK(0x40012c3c);
-Field<32> stm32f4::regs::sdio::FIFOCNT(0x40012c48);
-Field<32> stm32f4::regs::sdio::FIFO(0x40012c80);
-/*
- * SYSCFG
- */
-Field<32> stm32f4::regs::syscfg::MEMRM(0x40013800);
-Field<32> stm32f4::regs::syscfg::PMC(0x40013804);
-Field<32> stm32f4::regs::syscfg::EXTICR1(0x40013808);
-Field<32> stm32f4::regs::syscfg::EXTICR2(0x4001380c);
-Field<32> stm32f4::regs::syscfg::EXTICR3(0x40013810);
-Field<32> stm32f4::regs::syscfg::EXTICR4(0x40013814);
-Field<32> stm32f4::regs::syscfg::CMPCR(0x40013820);
-/*
- * TIM1
- */
-Field<32> stm32f4::regs::tim1::CR1(0x40010000);
-Field<32> stm32f4::regs::tim1::CR2(0x40010004);
-Field<32> stm32f4::regs::tim1::SMCR(0x40010008);
-Field<32> stm32f4::regs::tim1::DIER(0x4001000c);
-Field<32> stm32f4::regs::tim1::SR(0x40010010);
-Field<32> stm32f4::regs::tim1::EGR(0x40010014);
-Field<32> stm32f4::regs::tim1::CCMR1_Output(0x40010018);
-Field<32> stm32f4::regs::tim1::CCMR1_Input(0x40010018);
-Field<32> stm32f4::regs::tim1::CCMR2_Output(0x4001001c);
-Field<32> stm32f4::regs::tim1::CCMR2_Input(0x4001001c);
-Field<32> stm32f4::regs::tim1::CCER(0x40010020);
-Field<32> stm32f4::regs::tim1::CNT(0x40010024);
-Field<32> stm32f4::regs::tim1::PSC(0x40010028);
-Field<32> stm32f4::regs::tim1::ARR(0x4001002c);
-Field<32> stm32f4::regs::tim1::CCR1(0x40010034);
-Field<32> stm32f4::regs::tim1::CCR2(0x40010038);
-Field<32> stm32f4::regs::tim1::CCR3(0x4001003c);
-Field<32> stm32f4::regs::tim1::CCR4(0x40010040);
-Field<32> stm32f4::regs::tim1::DCR(0x40010048);
-Field<32> stm32f4::regs::tim1::DMAR(0x4001004c);
-Field<32> stm32f4::regs::tim1::RCR(0x40010030);
-Field<32> stm32f4::regs::tim1::BDTR(0x40010044);
-/*
- * TIM8
- */
-Field<32> stm32f4::regs::tim8::CR1(0x40010400);
-Field<32> stm32f4::regs::tim8::CR2(0x40010404);
-Field<32> stm32f4::regs::tim8::SMCR(0x40010408);
-Field<32> stm32f4::regs::tim8::DIER(0x4001040c);
-Field<32> stm32f4::regs::tim8::SR(0x40010410);
-Field<32> stm32f4::regs::tim8::EGR(0x40010414);
-Field<32> stm32f4::regs::tim8::CCMR1_Output(0x40010418);
-Field<32> stm32f4::regs::tim8::CCMR1_Input(0x40010418);
-Field<32> stm32f4::regs::tim8::CCMR2_Output(0x4001041c);
-Field<32> stm32f4::regs::tim8::CCMR2_Input(0x4001041c);
-Field<32> stm32f4::regs::tim8::CCER(0x40010420);
-Field<32> stm32f4::regs::tim8::CNT(0x40010424);
-Field<32> stm32f4::regs::tim8::PSC(0x40010428);
-Field<32> stm32f4::regs::tim8::ARR(0x4001042c);
-Field<32> stm32f4::regs::tim8::CCR1(0x40010434);
-Field<32> stm32f4::regs::tim8::CCR2(0x40010438);
-Field<32> stm32f4::regs::tim8::CCR3(0x4001043c);
-Field<32> stm32f4::regs::tim8::CCR4(0x40010440);
-Field<32> stm32f4::regs::tim8::DCR(0x40010448);
-Field<32> stm32f4::regs::tim8::DMAR(0x4001044c);
-Field<32> stm32f4::regs::tim8::RCR(0x40010430);
-Field<32> stm32f4::regs::tim8::BDTR(0x40010444);
-/*
- * TIM10
- */
-Field<32> stm32f4::regs::tim10::CR1(0x40014400);
-Field<32> stm32f4::regs::tim10::DIER(0x4001440c);
-Field<32> stm32f4::regs::tim10::SR(0x40014410);
-Field<32> stm32f4::regs::tim10::EGR(0x40014414);
-Field<32> stm32f4::regs::tim10::CCMR1_Output(0x40014418);
-Field<32> stm32f4::regs::tim10::CCMR1_Input(0x40014418);
-Field<32> stm32f4::regs::tim10::CCER(0x40014420);
-Field<32> stm32f4::regs::tim10::CNT(0x40014424);
-Field<32> stm32f4::regs::tim10::PSC(0x40014428);
-Field<32> stm32f4::regs::tim10::ARR(0x4001442c);
-Field<32> stm32f4::regs::tim10::CCR1(0x40014434);
-/*
- * TIM11
- */
-Field<32> stm32f4::regs::tim11::CR1(0x40014800);
-Field<32> stm32f4::regs::tim11::DIER(0x4001480c);
-Field<32> stm32f4::regs::tim11::SR(0x40014810);
-Field<32> stm32f4::regs::tim11::EGR(0x40014814);
-Field<32> stm32f4::regs::tim11::CCMR1_Output(0x40014818);
-Field<32> stm32f4::regs::tim11::CCMR1_Input(0x40014818);
-Field<32> stm32f4::regs::tim11::CCER(0x40014820);
-Field<32> stm32f4::regs::tim11::CNT(0x40014824);
-Field<32> stm32f4::regs::tim11::PSC(0x40014828);
-Field<32> stm32f4::regs::tim11::ARR(0x4001482c);
-Field<32> stm32f4::regs::tim11::CCR1(0x40014834);
-Field<32> stm32f4::regs::tim11::OR(0x40014850);
-/*
- * TIM2
- */
-Field<32> stm32f4::regs::tim2::CR1(0x40000000);
-Field<32> stm32f4::regs::tim2::CR2(0x40000004);
-Field<32> stm32f4::regs::tim2::SMCR(0x40000008);
-Field<32> stm32f4::regs::tim2::DIER(0x4000000c);
-Field<32> stm32f4::regs::tim2::SR(0x40000010);
-Field<32> stm32f4::regs::tim2::EGR(0x40000014);
-Field<32> stm32f4::regs::tim2::CCMR1_Output(0x40000018);
-Field<32> stm32f4::regs::tim2::CCMR1_Input(0x40000018);
-Field<32> stm32f4::regs::tim2::CCMR2_Output(0x4000001c);
-Field<32> stm32f4::regs::tim2::CCMR2_Input(0x4000001c);
-Field<32> stm32f4::regs::tim2::CCER(0x40000020);
-Field<32> stm32f4::regs::tim2::CNT(0x40000024);
-Field<32> stm32f4::regs::tim2::PSC(0x40000028);
-Field<32> stm32f4::regs::tim2::ARR(0x4000002c);
-Field<32> stm32f4::regs::tim2::CCR1(0x40000034);
-Field<32> stm32f4::regs::tim2::CCR2(0x40000038);
-Field<32> stm32f4::regs::tim2::CCR3(0x4000003c);
-Field<32> stm32f4::regs::tim2::CCR4(0x40000040);
-Field<32> stm32f4::regs::tim2::DCR(0x40000048);
-Field<32> stm32f4::regs::tim2::DMAR(0x4000004c);
-Field<32> stm32f4::regs::tim2::OR(0x40000050);
-/*
- * TIM3
- */
-Field<32> stm32f4::regs::tim3::CR1(0x40000400);
-Field<32> stm32f4::regs::tim3::CR2(0x40000404);
-Field<32> stm32f4::regs::tim3::SMCR(0x40000408);
-Field<32> stm32f4::regs::tim3::DIER(0x4000040c);
-Field<32> stm32f4::regs::tim3::SR(0x40000410);
-Field<32> stm32f4::regs::tim3::EGR(0x40000414);
-Field<32> stm32f4::regs::tim3::CCMR1_Output(0x40000418);
-Field<32> stm32f4::regs::tim3::CCMR1_Input(0x40000418);
-Field<32> stm32f4::regs::tim3::CCMR2_Output(0x4000041c);
-Field<32> stm32f4::regs::tim3::CCMR2_Input(0x4000041c);
-Field<32> stm32f4::regs::tim3::CCER(0x40000420);
-Field<32> stm32f4::regs::tim3::CNT(0x40000424);
-Field<32> stm32f4::regs::tim3::PSC(0x40000428);
-Field<32> stm32f4::regs::tim3::ARR(0x4000042c);
-Field<32> stm32f4::regs::tim3::CCR1(0x40000434);
-Field<32> stm32f4::regs::tim3::CCR2(0x40000438);
-Field<32> stm32f4::regs::tim3::CCR3(0x4000043c);
-Field<32> stm32f4::regs::tim3::CCR4(0x40000440);
-Field<32> stm32f4::regs::tim3::DCR(0x40000448);
-Field<32> stm32f4::regs::tim3::DMAR(0x4000044c);
-/*
- * TIM4
- */
-Field<32> stm32f4::regs::tim4::CR1(0x40000800);
-Field<32> stm32f4::regs::tim4::CR2(0x40000804);
-Field<32> stm32f4::regs::tim4::SMCR(0x40000808);
-Field<32> stm32f4::regs::tim4::DIER(0x4000080c);
-Field<32> stm32f4::regs::tim4::SR(0x40000810);
-Field<32> stm32f4::regs::tim4::EGR(0x40000814);
-Field<32> stm32f4::regs::tim4::CCMR1_Output(0x40000818);
-Field<32> stm32f4::regs::tim4::CCMR1_Input(0x40000818);
-Field<32> stm32f4::regs::tim4::CCMR2_Output(0x4000081c);
-Field<32> stm32f4::regs::tim4::CCMR2_Input(0x4000081c);
-Field<32> stm32f4::regs::tim4::CCER(0x40000820);
-Field<32> stm32f4::regs::tim4::CNT(0x40000824);
-Field<32> stm32f4::regs::tim4::PSC(0x40000828);
-Field<32> stm32f4::regs::tim4::ARR(0x4000082c);
-Field<32> stm32f4::regs::tim4::CCR1(0x40000834);
-Field<32> stm32f4::regs::tim4::CCR2(0x40000838);
-Field<32> stm32f4::regs::tim4::CCR3(0x4000083c);
-Field<32> stm32f4::regs::tim4::CCR4(0x40000840);
-Field<32> stm32f4::regs::tim4::DCR(0x40000848);
-Field<32> stm32f4::regs::tim4::DMAR(0x4000084c);
-/*
- * TIM5
- */
-Field<32> stm32f4::regs::tim5::CR1(0x40000c00);
-Field<32> stm32f4::regs::tim5::CR2(0x40000c04);
-Field<32> stm32f4::regs::tim5::SMCR(0x40000c08);
-Field<32> stm32f4::regs::tim5::DIER(0x40000c0c);
-Field<32> stm32f4::regs::tim5::SR(0x40000c10);
-Field<32> stm32f4::regs::tim5::EGR(0x40000c14);
-Field<32> stm32f4::regs::tim5::CCMR1_Output(0x40000c18);
-Field<32> stm32f4::regs::tim5::CCMR1_Input(0x40000c18);
-Field<32> stm32f4::regs::tim5::CCMR2_Output(0x40000c1c);
-Field<32> stm32f4::regs::tim5::CCMR2_Input(0x40000c1c);
-Field<32> stm32f4::regs::tim5::CCER(0x40000c20);
-Field<32> stm32f4::regs::tim5::CNT(0x40000c24);
-Field<32> stm32f4::regs::tim5::PSC(0x40000c28);
-Field<32> stm32f4::regs::tim5::ARR(0x40000c2c);
-Field<32> stm32f4::regs::tim5::CCR1(0x40000c34);
-Field<32> stm32f4::regs::tim5::CCR2(0x40000c38);
-Field<32> stm32f4::regs::tim5::CCR3(0x40000c3c);
-Field<32> stm32f4::regs::tim5::CCR4(0x40000c40);
-Field<32> stm32f4::regs::tim5::DCR(0x40000c48);
-Field<32> stm32f4::regs::tim5::DMAR(0x40000c4c);
-Field<32> stm32f4::regs::tim5::OR(0x40000c50);
-/*
- * TIM9
- */
-Field<32> stm32f4::regs::tim9::CR1(0x40014000);
-Field<32> stm32f4::regs::tim9::CR2(0x40014004);
-Field<32> stm32f4::regs::tim9::SMCR(0x40014008);
-Field<32> stm32f4::regs::tim9::DIER(0x4001400c);
-Field<32> stm32f4::regs::tim9::SR(0x40014010);
-Field<32> stm32f4::regs::tim9::EGR(0x40014014);
-Field<32> stm32f4::regs::tim9::CCMR1_Output(0x40014018);
-Field<32> stm32f4::regs::tim9::CCMR1_Input(0x40014018);
-Field<32> stm32f4::regs::tim9::CCER(0x40014020);
-Field<32> stm32f4::regs::tim9::CNT(0x40014024);
-Field<32> stm32f4::regs::tim9::PSC(0x40014028);
-Field<32> stm32f4::regs::tim9::ARR(0x4001402c);
-Field<32> stm32f4::regs::tim9::CCR1(0x40014034);
-Field<32> stm32f4::regs::tim9::CCR2(0x40014038);
-/*
- * USART1
- */
-Field<32> stm32f4::regs::usart1::SR(0x40011000);
-Field<32> stm32f4::regs::usart1::DR(0x40011004);
-Field<32> stm32f4::regs::usart1::BRR(0x40011008);
-Field<32> stm32f4::regs::usart1::CR1(0x4001100c);
-Field<32> stm32f4::regs::usart1::CR2(0x40011010);
-Field<32> stm32f4::regs::usart1::CR3(0x40011014);
-Field<32> stm32f4::regs::usart1::GTPR(0x40011018);
-/*
- * USART2
- */
-Field<32> stm32f4::regs::usart2::SR(0x40004400);
-Field<32> stm32f4::regs::usart2::DR(0x40004404);
-Field<32> stm32f4::regs::usart2::BRR(0x40004408);
-Field<32> stm32f4::regs::usart2::CR1(0x4000440c);
-Field<32> stm32f4::regs::usart2::CR2(0x40004410);
-Field<32> stm32f4::regs::usart2::CR3(0x40004414);
-Field<32> stm32f4::regs::usart2::GTPR(0x40004418);
-/*
- * USART6
- */
-Field<32> stm32f4::regs::usart6::SR(0x40011400);
-Field<32> stm32f4::regs::usart6::DR(0x40011404);
-Field<32> stm32f4::regs::usart6::BRR(0x40011408);
-Field<32> stm32f4::regs::usart6::CR1(0x4001140c);
-Field<32> stm32f4::regs::usart6::CR2(0x40011410);
-Field<32> stm32f4::regs::usart6::CR3(0x40011414);
-Field<32> stm32f4::regs::usart6::GTPR(0x40011418);
-/*
- * WWDG
- */
-Field<32> stm32f4::regs::wwdg::CR(0x40002c00);
-Field<32> stm32f4::regs::wwdg::CFR(0x40002c04);
-Field<32> stm32f4::regs::wwdg::SR(0x40002c08);
-/*
- * DMA2
- */
-Field<32> stm32f4::regs::dma2::LISR(0x40026400);
-Field<32> stm32f4::regs::dma2::HISR(0x40026404);
-Field<32> stm32f4::regs::dma2::LIFCR(0x40026408);
-Field<32> stm32f4::regs::dma2::HIFCR(0x4002640c);
-Field<32> stm32f4::regs::dma2::S0CR(0x40026410);
-Field<32> stm32f4::regs::dma2::S0NDTR(0x40026414);
-Field<32> stm32f4::regs::dma2::S0PAR(0x40026418);
-Field<32> stm32f4::regs::dma2::S0M0AR(0x4002641c);
-Field<32> stm32f4::regs::dma2::S0M1AR(0x40026420);
-Field<32> stm32f4::regs::dma2::S0FCR(0x40026424);
-Field<32> stm32f4::regs::dma2::S1CR(0x40026428);
-Field<32> stm32f4::regs::dma2::S1NDTR(0x4002642c);
-Field<32> stm32f4::regs::dma2::S1PAR(0x40026430);
-Field<32> stm32f4::regs::dma2::S1M0AR(0x40026434);
-Field<32> stm32f4::regs::dma2::S1M1AR(0x40026438);
-Field<32> stm32f4::regs::dma2::S1FCR(0x4002643c);
-Field<32> stm32f4::regs::dma2::S2CR(0x40026440);
-Field<32> stm32f4::regs::dma2::S2NDTR(0x40026444);
-Field<32> stm32f4::regs::dma2::S2PAR(0x40026448);
-Field<32> stm32f4::regs::dma2::S2M0AR(0x4002644c);
-Field<32> stm32f4::regs::dma2::S2M1AR(0x40026450);
-Field<32> stm32f4::regs::dma2::S2FCR(0x40026454);
-Field<32> stm32f4::regs::dma2::S3CR(0x40026458);
-Field<32> stm32f4::regs::dma2::S3NDTR(0x4002645c);
-Field<32> stm32f4::regs::dma2::S3PAR(0x40026460);
-Field<32> stm32f4::regs::dma2::S3M0AR(0x40026464);
-Field<32> stm32f4::regs::dma2::S3M1AR(0x40026468);
-Field<32> stm32f4::regs::dma2::S3FCR(0x4002646c);
-Field<32> stm32f4::regs::dma2::S4CR(0x40026470);
-Field<32> stm32f4::regs::dma2::S4NDTR(0x40026474);
-Field<32> stm32f4::regs::dma2::S4PAR(0x40026478);
-Field<32> stm32f4::regs::dma2::S4M0AR(0x4002647c);
-Field<32> stm32f4::regs::dma2::S4M1AR(0x40026480);
-Field<32> stm32f4::regs::dma2::S4FCR(0x40026484);
-Field<32> stm32f4::regs::dma2::S5CR(0x40026488);
-Field<32> stm32f4::regs::dma2::S5NDTR(0x4002648c);
-Field<32> stm32f4::regs::dma2::S5PAR(0x40026490);
-Field<32> stm32f4::regs::dma2::S5M0AR(0x40026494);
-Field<32> stm32f4::regs::dma2::S5M1AR(0x40026498);
-Field<32> stm32f4::regs::dma2::S5FCR(0x4002649c);
-Field<32> stm32f4::regs::dma2::S6CR(0x400264a0);
-Field<32> stm32f4::regs::dma2::S6NDTR(0x400264a4);
-Field<32> stm32f4::regs::dma2::S6PAR(0x400264a8);
-Field<32> stm32f4::regs::dma2::S6M0AR(0x400264ac);
-Field<32> stm32f4::regs::dma2::S6M1AR(0x400264b0);
-Field<32> stm32f4::regs::dma2::S6FCR(0x400264b4);
-Field<32> stm32f4::regs::dma2::S7CR(0x400264b8);
-Field<32> stm32f4::regs::dma2::S7NDTR(0x400264bc);
-Field<32> stm32f4::regs::dma2::S7PAR(0x400264c0);
-Field<32> stm32f4::regs::dma2::S7M0AR(0x400264c4);
-Field<32> stm32f4::regs::dma2::S7M1AR(0x400264c8);
-Field<32> stm32f4::regs::dma2::S7FCR(0x400264cc);
-/*
- * DMA1
- */
-Field<32> stm32f4::regs::dma1::LISR(0x40026000);
-Field<32> stm32f4::regs::dma1::HISR(0x40026004);
-Field<32> stm32f4::regs::dma1::LIFCR(0x40026008);
-Field<32> stm32f4::regs::dma1::HIFCR(0x4002600c);
-Field<32> stm32f4::regs::dma1::S0CR(0x40026010);
-Field<32> stm32f4::regs::dma1::S0NDTR(0x40026014);
-Field<32> stm32f4::regs::dma1::S0PAR(0x40026018);
-Field<32> stm32f4::regs::dma1::S0M0AR(0x4002601c);
-Field<32> stm32f4::regs::dma1::S0M1AR(0x40026020);
-Field<32> stm32f4::regs::dma1::S0FCR(0x40026024);
-Field<32> stm32f4::regs::dma1::S1CR(0x40026028);
-Field<32> stm32f4::regs::dma1::S1NDTR(0x4002602c);
-Field<32> stm32f4::regs::dma1::S1PAR(0x40026030);
-Field<32> stm32f4::regs::dma1::S1M0AR(0x40026034);
-Field<32> stm32f4::regs::dma1::S1M1AR(0x40026038);
-Field<32> stm32f4::regs::dma1::S1FCR(0x4002603c);
-Field<32> stm32f4::regs::dma1::S2CR(0x40026040);
-Field<32> stm32f4::regs::dma1::S2NDTR(0x40026044);
-Field<32> stm32f4::regs::dma1::S2PAR(0x40026048);
-Field<32> stm32f4::regs::dma1::S2M0AR(0x4002604c);
-Field<32> stm32f4::regs::dma1::S2M1AR(0x40026050);
-Field<32> stm32f4::regs::dma1::S2FCR(0x40026054);
-Field<32> stm32f4::regs::dma1::S3CR(0x40026058);
-Field<32> stm32f4::regs::dma1::S3NDTR(0x4002605c);
-Field<32> stm32f4::regs::dma1::S3PAR(0x40026060);
-Field<32> stm32f4::regs::dma1::S3M0AR(0x40026064);
-Field<32> stm32f4::regs::dma1::S3M1AR(0x40026068);
-Field<32> stm32f4::regs::dma1::S3FCR(0x4002606c);
-Field<32> stm32f4::regs::dma1::S4CR(0x40026070);
-Field<32> stm32f4::regs::dma1::S4NDTR(0x40026074);
-Field<32> stm32f4::regs::dma1::S4PAR(0x40026078);
-Field<32> stm32f4::regs::dma1::S4M0AR(0x4002607c);
-Field<32> stm32f4::regs::dma1::S4M1AR(0x40026080);
-Field<32> stm32f4::regs::dma1::S4FCR(0x40026084);
-Field<32> stm32f4::regs::dma1::S5CR(0x40026088);
-Field<32> stm32f4::regs::dma1::S5NDTR(0x4002608c);
-Field<32> stm32f4::regs::dma1::S5PAR(0x40026090);
-Field<32> stm32f4::regs::dma1::S5M0AR(0x40026094);
-Field<32> stm32f4::regs::dma1::S5M1AR(0x40026098);
-Field<32> stm32f4::regs::dma1::S5FCR(0x4002609c);
-Field<32> stm32f4::regs::dma1::S6CR(0x400260a0);
-Field<32> stm32f4::regs::dma1::S6NDTR(0x400260a4);
-Field<32> stm32f4::regs::dma1::S6PAR(0x400260a8);
-Field<32> stm32f4::regs::dma1::S6M0AR(0x400260ac);
-Field<32> stm32f4::regs::dma1::S6M1AR(0x400260b0);
-Field<32> stm32f4::regs::dma1::S6FCR(0x400260b4);
-Field<32> stm32f4::regs::dma1::S7CR(0x400260b8);
-Field<32> stm32f4::regs::dma1::S7NDTR(0x400260bc);
-Field<32> stm32f4::regs::dma1::S7PAR(0x400260c0);
-Field<32> stm32f4::regs::dma1::S7M0AR(0x400260c4);
-Field<32> stm32f4::regs::dma1::S7M1AR(0x400260c8);
-Field<32> stm32f4::regs::dma1::S7FCR(0x400260cc);
-/*
- * GPIOH
- */
-Field<32> stm32f4::regs::gpioh::MODER(0x40021c00);
-Field<32> stm32f4::regs::gpioh::OTYPER(0x40021c04);
-Field<32> stm32f4::regs::gpioh::OSPEEDR(0x40021c08);
-Field<32> stm32f4::regs::gpioh::PUPDR(0x40021c0c);
-Field<32> stm32f4::regs::gpioh::IDR(0x40021c10);
-Field<32> stm32f4::regs::gpioh::ODR(0x40021c14);
-Field<32> stm32f4::regs::gpioh::BSRR(0x40021c18);
-Field<32> stm32f4::regs::gpioh::LCKR(0x40021c1c);
-Field<32> stm32f4::regs::gpioh::AFRL(0x40021c20);
-Field<32> stm32f4::regs::gpioh::AFRH(0x40021c24);
-/*
- * GPIOE
- */
-Field<32> stm32f4::regs::gpioe::MODER(0x40021000);
-Field<32> stm32f4::regs::gpioe::OTYPER(0x40021004);
-Field<32> stm32f4::regs::gpioe::OSPEEDR(0x40021008);
-Field<32> stm32f4::regs::gpioe::PUPDR(0x4002100c);
-Field<32> stm32f4::regs::gpioe::IDR(0x40021010);
-Field<32> stm32f4::regs::gpioe::ODR(0x40021014);
-Field<32> stm32f4::regs::gpioe::BSRR(0x40021018);
-Field<32> stm32f4::regs::gpioe::LCKR(0x4002101c);
-Field<32> stm32f4::regs::gpioe::AFRL(0x40021020);
-Field<32> stm32f4::regs::gpioe::AFRH(0x40021024);
-/*
- * GPIOD
- */
-Field<32> stm32f4::regs::gpiod::MODER(0x40020c00);
-Field<32> stm32f4::regs::gpiod::OTYPER(0x40020c04);
-Field<32> stm32f4::regs::gpiod::OSPEEDR(0x40020c08);
-Field<32> stm32f4::regs::gpiod::PUPDR(0x40020c0c);
-Field<32> stm32f4::regs::gpiod::IDR(0x40020c10);
-Field<32> stm32f4::regs::gpiod::ODR(0x40020c14);
-Field<32> stm32f4::regs::gpiod::BSRR(0x40020c18);
-Field<32> stm32f4::regs::gpiod::LCKR(0x40020c1c);
-Field<32> stm32f4::regs::gpiod::AFRL(0x40020c20);
-Field<32> stm32f4::regs::gpiod::AFRH(0x40020c24);
-/*
- * GPIOC
- */
-Field<32> stm32f4::regs::gpioc::MODER(0x40020800);
-Field<32> stm32f4::regs::gpioc::OTYPER(0x40020804);
-Field<32> stm32f4::regs::gpioc::OSPEEDR(0x40020808);
-Field<32> stm32f4::regs::gpioc::PUPDR(0x4002080c);
-Field<32> stm32f4::regs::gpioc::IDR(0x40020810);
-Field<32> stm32f4::regs::gpioc::ODR(0x40020814);
-Field<32> stm32f4::regs::gpioc::BSRR(0x40020818);
-Field<32> stm32f4::regs::gpioc::LCKR(0x4002081c);
-Field<32> stm32f4::regs::gpioc::AFRL(0x40020820);
-Field<32> stm32f4::regs::gpioc::AFRH(0x40020824);
-/*
- * GPIOB
- */
-Field<32> stm32f4::regs::gpiob::MODER(0x40020400);
-Field<32> stm32f4::regs::gpiob::OTYPER(0x40020404);
-Field<32> stm32f4::regs::gpiob::OSPEEDR(0x40020408);
-Field<32> stm32f4::regs::gpiob::PUPDR(0x4002040c);
-Field<32> stm32f4::regs::gpiob::IDR(0x40020410);
-Field<32> stm32f4::regs::gpiob::ODR(0x40020414);
-Field<32> stm32f4::regs::gpiob::BSRR(0x40020418);
-Field<32> stm32f4::regs::gpiob::LCKR(0x4002041c);
-Field<32> stm32f4::regs::gpiob::AFRL(0x40020420);
-Field<32> stm32f4::regs::gpiob::AFRH(0x40020424);
-/*
- * GPIOA
- */
-Field<32> stm32f4::regs::gpioa::MODER(0x40020000);
-Field<32> stm32f4::regs::gpioa::OTYPER(0x40020004);
-Field<32> stm32f4::regs::gpioa::OSPEEDR(0x40020008);
-Field<32> stm32f4::regs::gpioa::PUPDR(0x4002000c);
-Field<32> stm32f4::regs::gpioa::IDR(0x40020010);
-Field<32> stm32f4::regs::gpioa::ODR(0x40020014);
-Field<32> stm32f4::regs::gpioa::BSRR(0x40020018);
-Field<32> stm32f4::regs::gpioa::LCKR(0x4002001c);
-Field<32> stm32f4::regs::gpioa::AFRL(0x40020020);
-Field<32> stm32f4::regs::gpioa::AFRH(0x40020024);
-/*
- * I2C3
- */
-Field<32> stm32f4::regs::i2c3::CR1(0x40005c00);
-Field<32> stm32f4::regs::i2c3::CR2(0x40005c04);
-Field<32> stm32f4::regs::i2c3::OAR1(0x40005c08);
-Field<32> stm32f4::regs::i2c3::OAR2(0x40005c0c);
-Field<32> stm32f4::regs::i2c3::DR(0x40005c10);
-Field<32> stm32f4::regs::i2c3::SR1(0x40005c14);
-Field<32> stm32f4::regs::i2c3::SR2(0x40005c18);
-Field<32> stm32f4::regs::i2c3::CCR(0x40005c1c);
-Field<32> stm32f4::regs::i2c3::TRISE(0x40005c20);
-/*
- * I2C2
- */
-Field<32> stm32f4::regs::i2c2::CR1(0x40005800);
-Field<32> stm32f4::regs::i2c2::CR2(0x40005804);
-Field<32> stm32f4::regs::i2c2::OAR1(0x40005808);
-Field<32> stm32f4::regs::i2c2::OAR2(0x4000580c);
-Field<32> stm32f4::regs::i2c2::DR(0x40005810);
-Field<32> stm32f4::regs::i2c2::SR1(0x40005814);
-Field<32> stm32f4::regs::i2c2::SR2(0x40005818);
-Field<32> stm32f4::regs::i2c2::CCR(0x4000581c);
-Field<32> stm32f4::regs::i2c2::TRISE(0x40005820);
-/*
- * I2C1
- */
-Field<32> stm32f4::regs::i2c1::CR1(0x40005400);
-Field<32> stm32f4::regs::i2c1::CR2(0x40005404);
-Field<32> stm32f4::regs::i2c1::OAR1(0x40005408);
-Field<32> stm32f4::regs::i2c1::OAR2(0x4000540c);
-Field<32> stm32f4::regs::i2c1::DR(0x40005410);
-Field<32> stm32f4::regs::i2c1::SR1(0x40005414);
-Field<32> stm32f4::regs::i2c1::SR2(0x40005418);
-Field<32> stm32f4::regs::i2c1::CCR(0x4000541c);
-Field<32> stm32f4::regs::i2c1::TRISE(0x40005420);
-/*
- * I2S2ext
- */
-Field<32> stm32f4::regs::i2s2ext::CR1(0x40003400);
-Field<32> stm32f4::regs::i2s2ext::CR2(0x40003404);
-Field<32> stm32f4::regs::i2s2ext::SR(0x40003408);
-Field<32> stm32f4::regs::i2s2ext::DR(0x4000340c);
-Field<32> stm32f4::regs::i2s2ext::CRCPR(0x40003410);
-Field<32> stm32f4::regs::i2s2ext::RXCRCR(0x40003414);
-Field<32> stm32f4::regs::i2s2ext::TXCRCR(0x40003418);
-Field<32> stm32f4::regs::i2s2ext::I2SCFGR(0x4000341c);
-Field<32> stm32f4::regs::i2s2ext::I2SPR(0x40003420);
-/*
- * I2S3ext
- */
-Field<32> stm32f4::regs::i2s3ext::CR1(0x40004000);
-Field<32> stm32f4::regs::i2s3ext::CR2(0x40004004);
-Field<32> stm32f4::regs::i2s3ext::SR(0x40004008);
-Field<32> stm32f4::regs::i2s3ext::DR(0x4000400c);
-Field<32> stm32f4::regs::i2s3ext::CRCPR(0x40004010);
-Field<32> stm32f4::regs::i2s3ext::RXCRCR(0x40004014);
-Field<32> stm32f4::regs::i2s3ext::TXCRCR(0x40004018);
-Field<32> stm32f4::regs::i2s3ext::I2SCFGR(0x4000401c);
-Field<32> stm32f4::regs::i2s3ext::I2SPR(0x40004020);
-/*
- * SPI1
- */
-Field<32> stm32f4::regs::spi1::CR1(0x40013000);
-Field<32> stm32f4::regs::spi1::CR2(0x40013004);
-Field<32> stm32f4::regs::spi1::SR(0x40013008);
-Field<32> stm32f4::regs::spi1::DR(0x4001300c);
-Field<32> stm32f4::regs::spi1::CRCPR(0x40013010);
-Field<32> stm32f4::regs::spi1::RXCRCR(0x40013014);
-Field<32> stm32f4::regs::spi1::TXCRCR(0x40013018);
-Field<32> stm32f4::regs::spi1::I2SCFGR(0x4001301c);
-Field<32> stm32f4::regs::spi1::I2SPR(0x40013020);
-/*
- * SPI2
- */
-Field<32> stm32f4::regs::spi2::CR1(0x40003800);
-Field<32> stm32f4::regs::spi2::CR2(0x40003804);
-Field<32> stm32f4::regs::spi2::SR(0x40003808);
-Field<32> stm32f4::regs::spi2::DR(0x4000380c);
-Field<32> stm32f4::regs::spi2::CRCPR(0x40003810);
-Field<32> stm32f4::regs::spi2::RXCRCR(0x40003814);
-Field<32> stm32f4::regs::spi2::TXCRCR(0x40003818);
-Field<32> stm32f4::regs::spi2::I2SCFGR(0x4000381c);
-Field<32> stm32f4::regs::spi2::I2SPR(0x40003820);
-/*
- * SPI3
- */
-Field<32> stm32f4::regs::spi3::CR1(0x40003c00);
-Field<32> stm32f4::regs::spi3::CR2(0x40003c04);
-Field<32> stm32f4::regs::spi3::SR(0x40003c08);
-Field<32> stm32f4::regs::spi3::DR(0x40003c0c);
-Field<32> stm32f4::regs::spi3::CRCPR(0x40003c10);
-Field<32> stm32f4::regs::spi3::RXCRCR(0x40003c14);
-Field<32> stm32f4::regs::spi3::TXCRCR(0x40003c18);
-Field<32> stm32f4::regs::spi3::I2SCFGR(0x40003c1c);
-Field<32> stm32f4::regs::spi3::I2SPR(0x40003c20);
-/*
- * SPI4
- */
-Field<32> stm32f4::regs::spi4::CR1(0x40013400);
-Field<32> stm32f4::regs::spi4::CR2(0x40013404);
-Field<32> stm32f4::regs::spi4::SR(0x40013408);
-Field<32> stm32f4::regs::spi4::DR(0x4001340c);
-Field<32> stm32f4::regs::spi4::CRCPR(0x40013410);
-Field<32> stm32f4::regs::spi4::RXCRCR(0x40013414);
-Field<32> stm32f4::regs::spi4::TXCRCR(0x40013418);
-Field<32> stm32f4::regs::spi4::I2SCFGR(0x4001341c);
-Field<32> stm32f4::regs::spi4::I2SPR(0x40013420);
-/*
- * SPI5
- */
-Field<32> stm32f4::regs::spi5::CR1(0x40015000);
-Field<32> stm32f4::regs::spi5::CR2(0x40015004);
-Field<32> stm32f4::regs::spi5::SR(0x40015008);
-Field<32> stm32f4::regs::spi5::DR(0x4001500c);
-Field<32> stm32f4::regs::spi5::CRCPR(0x40015010);
-Field<32> stm32f4::regs::spi5::RXCRCR(0x40015014);
-Field<32> stm32f4::regs::spi5::TXCRCR(0x40015018);
-Field<32> stm32f4::regs::spi5::I2SCFGR(0x4001501c);
-Field<32> stm32f4::regs::spi5::I2SPR(0x40015020);
-/*
- * NVIC
- */
-Field<32> stm32f4::regs::nvic::ICTR(0xe000e004);
-Field<32> stm32f4::regs::nvic::STIR(0xe000ef00);
-Field<32> stm32f4::regs::nvic::ISER0(0xe000e100);
-Field<32> stm32f4::regs::nvic::ISER1(0xe000e104);
-Field<32> stm32f4::regs::nvic::ISER2(0xe000e108);
-Field<32> stm32f4::regs::nvic::ICER0(0xe000e180);
-Field<32> stm32f4::regs::nvic::ICER1(0xe000e184);
-Field<32> stm32f4::regs::nvic::ICER2(0xe000e188);
-Field<32> stm32f4::regs::nvic::ISPR0(0xe000e200);
-Field<32> stm32f4::regs::nvic::ISPR1(0xe000e204);
-Field<32> stm32f4::regs::nvic::ISPR2(0xe000e208);
-Field<32> stm32f4::regs::nvic::ICPR0(0xe000e280);
-Field<32> stm32f4::regs::nvic::ICPR1(0xe000e284);
-Field<32> stm32f4::regs::nvic::ICPR2(0xe000e288);
-Field<32> stm32f4::regs::nvic::IABR0(0xe000e300);
-Field<32> stm32f4::regs::nvic::IABR1(0xe000e304);
-Field<32> stm32f4::regs::nvic::IABR2(0xe000e308);
-Field<32> stm32f4::regs::nvic::IPR0(0xe000e400);
-Field<32> stm32f4::regs::nvic::IPR1(0xe000e404);
-Field<32> stm32f4::regs::nvic::IPR2(0xe000e408);
-Field<32> stm32f4::regs::nvic::IPR3(0xe000e40c);
-Field<32> stm32f4::regs::nvic::IPR4(0xe000e410);
-Field<32> stm32f4::regs::nvic::IPR5(0xe000e414);
-Field<32> stm32f4::regs::nvic::IPR6(0xe000e418);
-Field<32> stm32f4::regs::nvic::IPR7(0xe000e41c);
-Field<32> stm32f4::regs::nvic::IPR8(0xe000e420);
-Field<32> stm32f4::regs::nvic::IPR9(0xe000e424);
-Field<32> stm32f4::regs::nvic::IPR10(0xe000e428);
-Field<32> stm32f4::regs::nvic::IPR11(0xe000e42c);
-Field<32> stm32f4::regs::nvic::IPR12(0xe000e430);
-Field<32> stm32f4::regs::nvic::IPR13(0xe000e434);
-Field<32> stm32f4::regs::nvic::IPR14(0xe000e438);
-Field<32> stm32f4::regs::nvic::IPR15(0xe000e43c);
-Field<32> stm32f4::regs::nvic::IPR16(0xe000e440);
-Field<32> stm32f4::regs::nvic::IPR17(0xe000e444);
-Field<32> stm32f4::regs::nvic::IPR18(0xe000e448);
-Field<32> stm32f4::regs::nvic::IPR19(0xe000e44c);
+stm32f4::regs::_adc_common stm32f4::regs::adc_common = {
+	.CSR = Field<32>(0x40012300),
+	.CCR = Field<32>(0x40012304),
+};
+stm32f4::regs::_adc stm32f4::regs::adc1 = {
+	.SR = Field<32>(0x40012000),
+	.CR1 = Field<32>(0x40012004),
+	.CR2 = Field<32>(0x40012008),
+	.SMPR1 = Field<32>(0x4001200c),
+	.SMPR2 = Field<32>(0x40012010),
+	.JOFR1 = Field<32>(0x40012014),
+	.JOFR2 = Field<32>(0x40012018),
+	.JOFR3 = Field<32>(0x4001201c),
+	.JOFR4 = Field<32>(0x40012020),
+	.HTR = Field<32>(0x40012024),
+	.LTR = Field<32>(0x40012028),
+	.SQR1 = Field<32>(0x4001202c),
+	.SQR2 = Field<32>(0x40012030),
+	.SQR3 = Field<32>(0x40012034),
+	.JSQR = Field<32>(0x40012038),
+	.JDR1 = Field<32>(0x4001203c),
+	.JDR2 = Field<32>(0x40012040),
+	.JDR3 = Field<32>(0x40012044),
+	.JDR4 = Field<32>(0x40012048),
+	.DR = Field<32>(0x4001204c),
+};
+stm32f4::regs::_crc stm32f4::regs::crc = {
+	.DR = Field<32>(0x40023000),
+	.IDR = Field<32>(0x40023004),
+	.CR = Field<32>(0x40023008),
+};
+stm32f4::regs::_dbg stm32f4::regs::dbg = {
+	.DBGMCU_IDCODE = Field<32>(0xe0042000),
+	.DBGMCU_CR = Field<32>(0xe0042004),
+	.DBGMCU_APB1_FZ = Field<32>(0xe0042008),
+	.DBGMCU_APB2_FZ = Field<32>(0xe004200c),
+};
+stm32f4::regs::_exti stm32f4::regs::exti = {
+	.IMR = Field<32>(0x40013c00),
+	.EMR = Field<32>(0x40013c04),
+	.RTSR = Field<32>(0x40013c08),
+	.FTSR = Field<32>(0x40013c0c),
+	.SWIER = Field<32>(0x40013c10),
+	.PR = Field<32>(0x40013c14),
+};
+stm32f4::regs::_flash stm32f4::regs::flash = {
+	.ACR = Field<32>(0x40023c00),
+	.KEYR = Field<32>(0x40023c04),
+	.OPTKEYR = Field<32>(0x40023c08),
+	.SR = Field<32>(0x40023c0c),
+	.CR = Field<32>(0x40023c10),
+	.OPTCR = Field<32>(0x40023c14),
+};
+stm32f4::regs::_iwdg stm32f4::regs::iwdg = {
+	.KR = Field<32>(0x40003000),
+	.PR = Field<32>(0x40003004),
+	.RLR = Field<32>(0x40003008),
+	.SR = Field<32>(0x4000300c),
+};
+stm32f4::regs::_otg_fs_device stm32f4::regs::otg_fs_device = {
+	.FS_DCFG = Field<32>(0x50000800),
+	.FS_DCTL = Field<32>(0x50000804),
+	.FS_DSTS = Field<32>(0x50000808),
+	.FS_DIEPMSK = Field<32>(0x50000810),
+	.FS_DOEPMSK = Field<32>(0x50000814),
+	.FS_DAINT = Field<32>(0x50000818),
+	.FS_DAINTMSK = Field<32>(0x5000081c),
+	.DVBUSDIS = Field<32>(0x50000828),
+	.DVBUSPULSE = Field<32>(0x5000082c),
+	.DIEPEMPMSK = Field<32>(0x50000834),
+	.FS_DIEPCTL0 = Field<32>(0x50000900),
+	.DIEPCTL1 = Field<32>(0x50000920),
+	.DIEPCTL2 = Field<32>(0x50000940),
+	.DIEPCTL3 = Field<32>(0x50000960),
+	.DOEPCTL0 = Field<32>(0x50000b00),
+	.DOEPCTL1 = Field<32>(0x50000b20),
+	.DOEPCTL2 = Field<32>(0x50000b40),
+	.DOEPCTL3 = Field<32>(0x50000b60),
+	.DIEPINT0 = Field<32>(0x50000908),
+	.DIEPINT1 = Field<32>(0x50000928),
+	.DIEPINT2 = Field<32>(0x50000948),
+	.DIEPINT3 = Field<32>(0x50000968),
+	.DOEPINT0 = Field<32>(0x50000b08),
+	.DOEPINT1 = Field<32>(0x50000b28),
+	.DOEPINT2 = Field<32>(0x50000b48),
+	.DOEPINT3 = Field<32>(0x50000b68),
+	.DIEPTSIZ0 = Field<32>(0x50000910),
+	.DOEPTSIZ0 = Field<32>(0x50000b10),
+	.DIEPTSIZ1 = Field<32>(0x50000930),
+	.DIEPTSIZ2 = Field<32>(0x50000950),
+	.DIEPTSIZ3 = Field<32>(0x50000970),
+	.DTXFSTS0 = Field<32>(0x50000918),
+	.DTXFSTS1 = Field<32>(0x50000938),
+	.DTXFSTS2 = Field<32>(0x50000958),
+	.DTXFSTS3 = Field<32>(0x50000978),
+	.DOEPTSIZ1 = Field<32>(0x50000b30),
+	.DOEPTSIZ2 = Field<32>(0x50000b50),
+	.DOEPTSIZ3 = Field<32>(0x50000b70),
+};
+stm32f4::regs::_otg_fs_global stm32f4::regs::otg_fs_global = {
+	.FS_GOTGCTL = Field<32>(0x50000000),
+	.FS_GOTGINT = Field<32>(0x50000004),
+	.FS_GAHBCFG = Field<32>(0x50000008),
+	.FS_GUSBCFG = Field<32>(0x5000000c),
+	.FS_GRSTCTL = Field<32>(0x50000010),
+	.FS_GINTSTS = Field<32>(0x50000014),
+	.FS_GINTMSK = Field<32>(0x50000018),
+	.FS_GRXSTSR_Device = Field<32>(0x5000001c),
+	.FS_GRXSTSR_Host = Field<32>(0x5000001c),
+	.FS_GRXFSIZ = Field<32>(0x50000024),
+	.FS_GNPTXFSIZ_Device = Field<32>(0x50000028),
+	.FS_GNPTXFSIZ_Host = Field<32>(0x50000028),
+	.FS_GNPTXSTS = Field<32>(0x5000002c),
+	.FS_GCCFG = Field<32>(0x50000038),
+	.FS_CID = Field<32>(0x5000003c),
+	.FS_HPTXFSIZ = Field<32>(0x50000100),
+	.FS_DIEPTXF1 = Field<32>(0x50000104),
+	.FS_DIEPTXF2 = Field<32>(0x50000108),
+	.FS_DIEPTXF3 = Field<32>(0x5000010c),
+};
+stm32f4::regs::_otg_fs_host stm32f4::regs::otg_fs_host = {
+	.FS_HCFG = Field<32>(0x50000400),
+	.HFIR = Field<32>(0x50000404),
+	.FS_HFNUM = Field<32>(0x50000408),
+	.FS_HPTXSTS = Field<32>(0x50000410),
+	.HAINT = Field<32>(0x50000414),
+	.HAINTMSK = Field<32>(0x50000418),
+	.FS_HPRT = Field<32>(0x50000440),
+	.FS_HCCHAR0 = Field<32>(0x50000500),
+	.FS_HCCHAR1 = Field<32>(0x50000520),
+	.FS_HCCHAR2 = Field<32>(0x50000540),
+	.FS_HCCHAR3 = Field<32>(0x50000560),
+	.FS_HCCHAR4 = Field<32>(0x50000580),
+	.FS_HCCHAR5 = Field<32>(0x500005a0),
+	.FS_HCCHAR6 = Field<32>(0x500005c0),
+	.FS_HCCHAR7 = Field<32>(0x500005e0),
+	.FS_HCINT0 = Field<32>(0x50000508),
+	.FS_HCINT1 = Field<32>(0x50000528),
+	.FS_HCINT2 = Field<32>(0x50000548),
+	.FS_HCINT3 = Field<32>(0x50000568),
+	.FS_HCINT4 = Field<32>(0x50000588),
+	.FS_HCINT5 = Field<32>(0x500005a8),
+	.FS_HCINT6 = Field<32>(0x500005c8),
+	.FS_HCINT7 = Field<32>(0x500005e8),
+	.FS_HCINTMSK0 = Field<32>(0x5000050c),
+	.FS_HCINTMSK1 = Field<32>(0x5000052c),
+	.FS_HCINTMSK2 = Field<32>(0x5000054c),
+	.FS_HCINTMSK3 = Field<32>(0x5000056c),
+	.FS_HCINTMSK4 = Field<32>(0x5000058c),
+	.FS_HCINTMSK5 = Field<32>(0x500005ac),
+	.FS_HCINTMSK6 = Field<32>(0x500005cc),
+	.FS_HCINTMSK7 = Field<32>(0x500005ec),
+	.FS_HCTSIZ0 = Field<32>(0x50000510),
+	.FS_HCTSIZ1 = Field<32>(0x50000530),
+	.FS_HCTSIZ2 = Field<32>(0x50000550),
+	.FS_HCTSIZ3 = Field<32>(0x50000570),
+	.FS_HCTSIZ4 = Field<32>(0x50000590),
+	.FS_HCTSIZ5 = Field<32>(0x500005b0),
+	.FS_HCTSIZ6 = Field<32>(0x500005d0),
+	.FS_HCTSIZ7 = Field<32>(0x500005f0),
+};
+stm32f4::regs::_otg_fs_pwrclk stm32f4::regs::otg_fs_pwrclk = {
+	.FS_PCGCCTL = Field<32>(0x50000e00),
+};
+stm32f4::regs::_pwr stm32f4::regs::pwr = {
+	.CR = Field<32>(0x40007000),
+	.CSR = Field<32>(0x40007004),
+};
+stm32f4::regs::_rcc stm32f4::regs::rcc = {
+	.CR = Field<32>(0x40023800),
+	.PLLCFGR = Field<32>(0x40023804),
+	.CFGR = Field<32>(0x40023808),
+	.CIR = Field<32>(0x4002380c),
+	.AHB1RSTR = Field<32>(0x40023810),
+	.AHB2RSTR = Field<32>(0x40023814),
+	.APB1RSTR = Field<32>(0x40023820),
+	.APB2RSTR = Field<32>(0x40023824),
+	.AHB1ENR = Field<32>(0x40023830),
+	.AHB2ENR = Field<32>(0x40023834),
+	.APB1ENR = Field<32>(0x40023840),
+	.APB2ENR = Field<32>(0x40023844),
+	.AHB1LPENR = Field<32>(0x40023850),
+	.AHB2LPENR = Field<32>(0x40023854),
+	.APB1LPENR = Field<32>(0x40023860),
+	.APB2LPENR = Field<32>(0x40023864),
+	.BDCR = Field<32>(0x40023870),
+	.CSR = Field<32>(0x40023874),
+	.SSCGR = Field<32>(0x40023880),
+	.PLLI2SCFGR = Field<32>(0x40023884),
+};
+stm32f4::regs::_rtc stm32f4::regs::rtc = {
+	.TR = Field<32>(0x40002800),
+	.DR = Field<32>(0x40002804),
+	.CR = Field<32>(0x40002808),
+	.ISR = Field<32>(0x4000280c),
+	.PRER = Field<32>(0x40002810),
+	.WUTR = Field<32>(0x40002814),
+	.CALIBR = Field<32>(0x40002818),
+	.ALRMAR = Field<32>(0x4000281c),
+	.ALRMBR = Field<32>(0x40002820),
+	.WPR = Field<32>(0x40002824),
+	.SSR = Field<32>(0x40002828),
+	.SHIFTR = Field<32>(0x4000282c),
+	.TSTR = Field<32>(0x40002830),
+	.TSDR = Field<32>(0x40002834),
+	.TSSSR = Field<32>(0x40002838),
+	.CALR = Field<32>(0x4000283c),
+	.TAFCR = Field<32>(0x40002840),
+	.ALRMASSR = Field<32>(0x40002844),
+	.ALRMBSSR = Field<32>(0x40002848),
+	.BKP0R = Field<32>(0x40002850),
+	.BKP1R = Field<32>(0x40002854),
+	.BKP2R = Field<32>(0x40002858),
+	.BKP3R = Field<32>(0x4000285c),
+	.BKP4R = Field<32>(0x40002860),
+	.BKP5R = Field<32>(0x40002864),
+	.BKP6R = Field<32>(0x40002868),
+	.BKP7R = Field<32>(0x4000286c),
+	.BKP8R = Field<32>(0x40002870),
+	.BKP9R = Field<32>(0x40002874),
+	.BKP10R = Field<32>(0x40002878),
+	.BKP11R = Field<32>(0x4000287c),
+	.BKP12R = Field<32>(0x40002880),
+	.BKP13R = Field<32>(0x40002884),
+	.BKP14R = Field<32>(0x40002888),
+	.BKP15R = Field<32>(0x4000288c),
+	.BKP16R = Field<32>(0x40002890),
+	.BKP17R = Field<32>(0x40002894),
+	.BKP18R = Field<32>(0x40002898),
+	.BKP19R = Field<32>(0x4000289c),
+};
+stm32f4::regs::_sdio stm32f4::regs::sdio = {
+	.POWER = Field<32>(0x40012c00),
+	.CLKCR = Field<32>(0x40012c04),
+	.ARG = Field<32>(0x40012c08),
+	.CMD = Field<32>(0x40012c0c),
+	.RESPCMD = Field<32>(0x40012c10),
+	.RESP1 = Field<32>(0x40012c14),
+	.RESP2 = Field<32>(0x40012c18),
+	.RESP3 = Field<32>(0x40012c1c),
+	.RESP4 = Field<32>(0x40012c20),
+	.DTIMER = Field<32>(0x40012c24),
+	.DLEN = Field<32>(0x40012c28),
+	.DCTRL = Field<32>(0x40012c2c),
+	.DCOUNT = Field<32>(0x40012c30),
+	.STA = Field<32>(0x40012c34),
+	.ICR = Field<32>(0x40012c38),
+	.MASK = Field<32>(0x40012c3c),
+	.FIFOCNT = Field<32>(0x40012c48),
+	.FIFO = Field<32>(0x40012c80),
+};
+stm32f4::regs::_syscfg stm32f4::regs::syscfg = {
+	.MEMRM = Field<32>(0x40013800),
+	.PMC = Field<32>(0x40013804),
+	.EXTICR1 = Field<32>(0x40013808),
+	.EXTICR2 = Field<32>(0x4001380c),
+	.EXTICR3 = Field<32>(0x40013810),
+	.EXTICR4 = Field<32>(0x40013814),
+	.CMPCR = Field<32>(0x40013820),
+};
+stm32f4::regs::_tim1 stm32f4::regs::tim1 = {
+	.CR1 = Field<32>(0x40010000),
+	.CR2 = Field<32>(0x40010004),
+	.SMCR = Field<32>(0x40010008),
+	.DIER = Field<32>(0x4001000c),
+	.SR = Field<32>(0x40010010),
+	.EGR = Field<32>(0x40010014),
+	.CCMR1_Output = Field<32>(0x40010018),
+	.CCMR1_Input = Field<32>(0x40010018),
+	.CCMR2_Output = Field<32>(0x4001001c),
+	.CCMR2_Input = Field<32>(0x4001001c),
+	.CCER = Field<32>(0x40010020),
+	.CNT = Field<32>(0x40010024),
+	.PSC = Field<32>(0x40010028),
+	.ARR = Field<32>(0x4001002c),
+	.CCR1 = Field<32>(0x40010034),
+	.CCR2 = Field<32>(0x40010038),
+	.CCR3 = Field<32>(0x4001003c),
+	.CCR4 = Field<32>(0x40010040),
+	.DCR = Field<32>(0x40010048),
+	.DMAR = Field<32>(0x4001004c),
+	.RCR = Field<32>(0x40010030),
+	.BDTR = Field<32>(0x40010044),
+};
+stm32f4::regs::_tim8 stm32f4::regs::tim8 = {
+	.CR1 = Field<32>(0x40010400),
+	.CR2 = Field<32>(0x40010404),
+	.SMCR = Field<32>(0x40010408),
+	.DIER = Field<32>(0x4001040c),
+	.SR = Field<32>(0x40010410),
+	.EGR = Field<32>(0x40010414),
+	.CCMR1_Output = Field<32>(0x40010418),
+	.CCMR1_Input = Field<32>(0x40010418),
+	.CCMR2_Output = Field<32>(0x4001041c),
+	.CCMR2_Input = Field<32>(0x4001041c),
+	.CCER = Field<32>(0x40010420),
+	.CNT = Field<32>(0x40010424),
+	.PSC = Field<32>(0x40010428),
+	.ARR = Field<32>(0x4001042c),
+	.CCR1 = Field<32>(0x40010434),
+	.CCR2 = Field<32>(0x40010438),
+	.CCR3 = Field<32>(0x4001043c),
+	.CCR4 = Field<32>(0x40010440),
+	.DCR = Field<32>(0x40010448),
+	.DMAR = Field<32>(0x4001044c),
+	.RCR = Field<32>(0x40010430),
+	.BDTR = Field<32>(0x40010444),
+};
+stm32f4::regs::_tim10 stm32f4::regs::tim10 = {
+	.CR1 = Field<32>(0x40014400),
+	.DIER = Field<32>(0x4001440c),
+	.SR = Field<32>(0x40014410),
+	.EGR = Field<32>(0x40014414),
+	.CCMR1_Output = Field<32>(0x40014418),
+	.CCMR1_Input = Field<32>(0x40014418),
+	.CCER = Field<32>(0x40014420),
+	.CNT = Field<32>(0x40014424),
+	.PSC = Field<32>(0x40014428),
+	.ARR = Field<32>(0x4001442c),
+	.CCR1 = Field<32>(0x40014434),
+};
+stm32f4::regs::_tim11 stm32f4::regs::tim11 = {
+	.CR1 = Field<32>(0x40014800),
+	.DIER = Field<32>(0x4001480c),
+	.SR = Field<32>(0x40014810),
+	.EGR = Field<32>(0x40014814),
+	.CCMR1_Output = Field<32>(0x40014818),
+	.CCMR1_Input = Field<32>(0x40014818),
+	.CCER = Field<32>(0x40014820),
+	.CNT = Field<32>(0x40014824),
+	.PSC = Field<32>(0x40014828),
+	.ARR = Field<32>(0x4001482c),
+	.CCR1 = Field<32>(0x40014834),
+	.OR = Field<32>(0x40014850),
+};
+stm32f4::regs::_tim2 stm32f4::regs::tim2 = {
+	.CR1 = Field<32>(0x40000000),
+	.CR2 = Field<32>(0x40000004),
+	.SMCR = Field<32>(0x40000008),
+	.DIER = Field<32>(0x4000000c),
+	.SR = Field<32>(0x40000010),
+	.EGR = Field<32>(0x40000014),
+	.CCMR1_Output = Field<32>(0x40000018),
+	.CCMR1_Input = Field<32>(0x40000018),
+	.CCMR2_Output = Field<32>(0x4000001c),
+	.CCMR2_Input = Field<32>(0x4000001c),
+	.CCER = Field<32>(0x40000020),
+	.CNT = Field<32>(0x40000024),
+	.PSC = Field<32>(0x40000028),
+	.ARR = Field<32>(0x4000002c),
+	.CCR1 = Field<32>(0x40000034),
+	.CCR2 = Field<32>(0x40000038),
+	.CCR3 = Field<32>(0x4000003c),
+	.CCR4 = Field<32>(0x40000040),
+	.DCR = Field<32>(0x40000048),
+	.DMAR = Field<32>(0x4000004c),
+	.OR = Field<32>(0x40000050),
+};
+stm32f4::regs::_tim3 stm32f4::regs::tim3 = {
+	.CR1 = Field<32>(0x40000400),
+	.CR2 = Field<32>(0x40000404),
+	.SMCR = Field<32>(0x40000408),
+	.DIER = Field<32>(0x4000040c),
+	.SR = Field<32>(0x40000410),
+	.EGR = Field<32>(0x40000414),
+	.CCMR1_Output = Field<32>(0x40000418),
+	.CCMR1_Input = Field<32>(0x40000418),
+	.CCMR2_Output = Field<32>(0x4000041c),
+	.CCMR2_Input = Field<32>(0x4000041c),
+	.CCER = Field<32>(0x40000420),
+	.CNT = Field<32>(0x40000424),
+	.PSC = Field<32>(0x40000428),
+	.ARR = Field<32>(0x4000042c),
+	.CCR1 = Field<32>(0x40000434),
+	.CCR2 = Field<32>(0x40000438),
+	.CCR3 = Field<32>(0x4000043c),
+	.CCR4 = Field<32>(0x40000440),
+	.DCR = Field<32>(0x40000448),
+	.DMAR = Field<32>(0x4000044c),
+};
+stm32f4::regs::_tim4 stm32f4::regs::tim4 = {
+	.CR1 = Field<32>(0x40000800),
+	.CR2 = Field<32>(0x40000804),
+	.SMCR = Field<32>(0x40000808),
+	.DIER = Field<32>(0x4000080c),
+	.SR = Field<32>(0x40000810),
+	.EGR = Field<32>(0x40000814),
+	.CCMR1_Output = Field<32>(0x40000818),
+	.CCMR1_Input = Field<32>(0x40000818),
+	.CCMR2_Output = Field<32>(0x4000081c),
+	.CCMR2_Input = Field<32>(0x4000081c),
+	.CCER = Field<32>(0x40000820),
+	.CNT = Field<32>(0x40000824),
+	.PSC = Field<32>(0x40000828),
+	.ARR = Field<32>(0x4000082c),
+	.CCR1 = Field<32>(0x40000834),
+	.CCR2 = Field<32>(0x40000838),
+	.CCR3 = Field<32>(0x4000083c),
+	.CCR4 = Field<32>(0x40000840),
+	.DCR = Field<32>(0x40000848),
+	.DMAR = Field<32>(0x4000084c),
+};
+stm32f4::regs::_tim5 stm32f4::regs::tim5 = {
+	.CR1 = Field<32>(0x40000c00),
+	.CR2 = Field<32>(0x40000c04),
+	.SMCR = Field<32>(0x40000c08),
+	.DIER = Field<32>(0x40000c0c),
+	.SR = Field<32>(0x40000c10),
+	.EGR = Field<32>(0x40000c14),
+	.CCMR1_Output = Field<32>(0x40000c18),
+	.CCMR1_Input = Field<32>(0x40000c18),
+	.CCMR2_Output = Field<32>(0x40000c1c),
+	.CCMR2_Input = Field<32>(0x40000c1c),
+	.CCER = Field<32>(0x40000c20),
+	.CNT = Field<32>(0x40000c24),
+	.PSC = Field<32>(0x40000c28),
+	.ARR = Field<32>(0x40000c2c),
+	.CCR1 = Field<32>(0x40000c34),
+	.CCR2 = Field<32>(0x40000c38),
+	.CCR3 = Field<32>(0x40000c3c),
+	.CCR4 = Field<32>(0x40000c40),
+	.DCR = Field<32>(0x40000c48),
+	.DMAR = Field<32>(0x40000c4c),
+	.OR = Field<32>(0x40000c50),
+};
+stm32f4::regs::_tim9 stm32f4::regs::tim9 = {
+	.CR1 = Field<32>(0x40014000),
+	.CR2 = Field<32>(0x40014004),
+	.SMCR = Field<32>(0x40014008),
+	.DIER = Field<32>(0x4001400c),
+	.SR = Field<32>(0x40014010),
+	.EGR = Field<32>(0x40014014),
+	.CCMR1_Output = Field<32>(0x40014018),
+	.CCMR1_Input = Field<32>(0x40014018),
+	.CCER = Field<32>(0x40014020),
+	.CNT = Field<32>(0x40014024),
+	.PSC = Field<32>(0x40014028),
+	.ARR = Field<32>(0x4001402c),
+	.CCR1 = Field<32>(0x40014034),
+	.CCR2 = Field<32>(0x40014038),
+};
+stm32f4::regs::_usart stm32f4::regs::usart1 = {
+	.SR = Field<32>(0x40011000),
+	.DR = Field<32>(0x40011004),
+	.BRR = Field<32>(0x40011008),
+	.CR1 = Field<32>(0x4001100c),
+	.CR2 = Field<32>(0x40011010),
+	.CR3 = Field<32>(0x40011014),
+	.GTPR = Field<32>(0x40011018),
+};
+stm32f4::regs::_usart stm32f4::regs::usart2 = {
+	.SR = Field<32>(0x40004400),
+	.DR = Field<32>(0x40004404),
+	.BRR = Field<32>(0x40004408),
+	.CR1 = Field<32>(0x4000440c),
+	.CR2 = Field<32>(0x40004410),
+	.CR3 = Field<32>(0x40004414),
+	.GTPR = Field<32>(0x40004418),
+};
+stm32f4::regs::_usart stm32f4::regs::usart6 = {
+	.SR = Field<32>(0x40011400),
+	.DR = Field<32>(0x40011404),
+	.BRR = Field<32>(0x40011408),
+	.CR1 = Field<32>(0x4001140c),
+	.CR2 = Field<32>(0x40011410),
+	.CR3 = Field<32>(0x40011414),
+	.GTPR = Field<32>(0x40011418),
+};
+stm32f4::regs::_wwdg stm32f4::regs::wwdg = {
+	.CR = Field<32>(0x40002c00),
+	.CFR = Field<32>(0x40002c04),
+	.SR = Field<32>(0x40002c08),
+};
+stm32f4::regs::_dma stm32f4::regs::dma2 = {
+	.LISR = Field<32>(0x40026400),
+	.HISR = Field<32>(0x40026404),
+	.LIFCR = Field<32>(0x40026408),
+	.HIFCR = Field<32>(0x4002640c),
+	.S0CR = Field<32>(0x40026410),
+	.S0NDTR = Field<32>(0x40026414),
+	.S0PAR = Field<32>(0x40026418),
+	.S0M0AR = Field<32>(0x4002641c),
+	.S0M1AR = Field<32>(0x40026420),
+	.S0FCR = Field<32>(0x40026424),
+	.S1CR = Field<32>(0x40026428),
+	.S1NDTR = Field<32>(0x4002642c),
+	.S1PAR = Field<32>(0x40026430),
+	.S1M0AR = Field<32>(0x40026434),
+	.S1M1AR = Field<32>(0x40026438),
+	.S1FCR = Field<32>(0x4002643c),
+	.S2CR = Field<32>(0x40026440),
+	.S2NDTR = Field<32>(0x40026444),
+	.S2PAR = Field<32>(0x40026448),
+	.S2M0AR = Field<32>(0x4002644c),
+	.S2M1AR = Field<32>(0x40026450),
+	.S2FCR = Field<32>(0x40026454),
+	.S3CR = Field<32>(0x40026458),
+	.S3NDTR = Field<32>(0x4002645c),
+	.S3PAR = Field<32>(0x40026460),
+	.S3M0AR = Field<32>(0x40026464),
+	.S3M1AR = Field<32>(0x40026468),
+	.S3FCR = Field<32>(0x4002646c),
+	.S4CR = Field<32>(0x40026470),
+	.S4NDTR = Field<32>(0x40026474),
+	.S4PAR = Field<32>(0x40026478),
+	.S4M0AR = Field<32>(0x4002647c),
+	.S4M1AR = Field<32>(0x40026480),
+	.S4FCR = Field<32>(0x40026484),
+	.S5CR = Field<32>(0x40026488),
+	.S5NDTR = Field<32>(0x4002648c),
+	.S5PAR = Field<32>(0x40026490),
+	.S5M0AR = Field<32>(0x40026494),
+	.S5M1AR = Field<32>(0x40026498),
+	.S5FCR = Field<32>(0x4002649c),
+	.S6CR = Field<32>(0x400264a0),
+	.S6NDTR = Field<32>(0x400264a4),
+	.S6PAR = Field<32>(0x400264a8),
+	.S6M0AR = Field<32>(0x400264ac),
+	.S6M1AR = Field<32>(0x400264b0),
+	.S6FCR = Field<32>(0x400264b4),
+	.S7CR = Field<32>(0x400264b8),
+	.S7NDTR = Field<32>(0x400264bc),
+	.S7PAR = Field<32>(0x400264c0),
+	.S7M0AR = Field<32>(0x400264c4),
+	.S7M1AR = Field<32>(0x400264c8),
+	.S7FCR = Field<32>(0x400264cc),
+};
+stm32f4::regs::_dma stm32f4::regs::dma1 = {
+	.LISR = Field<32>(0x40026000),
+	.HISR = Field<32>(0x40026004),
+	.LIFCR = Field<32>(0x40026008),
+	.HIFCR = Field<32>(0x4002600c),
+	.S0CR = Field<32>(0x40026010),
+	.S0NDTR = Field<32>(0x40026014),
+	.S0PAR = Field<32>(0x40026018),
+	.S0M0AR = Field<32>(0x4002601c),
+	.S0M1AR = Field<32>(0x40026020),
+	.S0FCR = Field<32>(0x40026024),
+	.S1CR = Field<32>(0x40026028),
+	.S1NDTR = Field<32>(0x4002602c),
+	.S1PAR = Field<32>(0x40026030),
+	.S1M0AR = Field<32>(0x40026034),
+	.S1M1AR = Field<32>(0x40026038),
+	.S1FCR = Field<32>(0x4002603c),
+	.S2CR = Field<32>(0x40026040),
+	.S2NDTR = Field<32>(0x40026044),
+	.S2PAR = Field<32>(0x40026048),
+	.S2M0AR = Field<32>(0x4002604c),
+	.S2M1AR = Field<32>(0x40026050),
+	.S2FCR = Field<32>(0x40026054),
+	.S3CR = Field<32>(0x40026058),
+	.S3NDTR = Field<32>(0x4002605c),
+	.S3PAR = Field<32>(0x40026060),
+	.S3M0AR = Field<32>(0x40026064),
+	.S3M1AR = Field<32>(0x40026068),
+	.S3FCR = Field<32>(0x4002606c),
+	.S4CR = Field<32>(0x40026070),
+	.S4NDTR = Field<32>(0x40026074),
+	.S4PAR = Field<32>(0x40026078),
+	.S4M0AR = Field<32>(0x4002607c),
+	.S4M1AR = Field<32>(0x40026080),
+	.S4FCR = Field<32>(0x40026084),
+	.S5CR = Field<32>(0x40026088),
+	.S5NDTR = Field<32>(0x4002608c),
+	.S5PAR = Field<32>(0x40026090),
+	.S5M0AR = Field<32>(0x40026094),
+	.S5M1AR = Field<32>(0x40026098),
+	.S5FCR = Field<32>(0x4002609c),
+	.S6CR = Field<32>(0x400260a0),
+	.S6NDTR = Field<32>(0x400260a4),
+	.S6PAR = Field<32>(0x400260a8),
+	.S6M0AR = Field<32>(0x400260ac),
+	.S6M1AR = Field<32>(0x400260b0),
+	.S6FCR = Field<32>(0x400260b4),
+	.S7CR = Field<32>(0x400260b8),
+	.S7NDTR = Field<32>(0x400260bc),
+	.S7PAR = Field<32>(0x400260c0),
+	.S7M0AR = Field<32>(0x400260c4),
+	.S7M1AR = Field<32>(0x400260c8),
+	.S7FCR = Field<32>(0x400260cc),
+};
+stm32f4::regs::_gpio stm32f4::regs::gpioh = {
+	.MODER = Field<32>(0x40021c00),
+	.OTYPER = Field<32>(0x40021c04),
+	.OSPEEDR = Field<32>(0x40021c08),
+	.PUPDR = Field<32>(0x40021c0c),
+	.IDR = Field<32>(0x40021c10),
+	.ODR = Field<32>(0x40021c14),
+	.BSRR = Field<32>(0x40021c18),
+	.LCKR = Field<32>(0x40021c1c),
+	.AFRL = Field<32>(0x40021c20),
+	.AFRH = Field<32>(0x40021c24),
+};
+stm32f4::regs::_gpio stm32f4::regs::gpioe = {
+	.MODER = Field<32>(0x40021000),
+	.OTYPER = Field<32>(0x40021004),
+	.OSPEEDR = Field<32>(0x40021008),
+	.PUPDR = Field<32>(0x4002100c),
+	.IDR = Field<32>(0x40021010),
+	.ODR = Field<32>(0x40021014),
+	.BSRR = Field<32>(0x40021018),
+	.LCKR = Field<32>(0x4002101c),
+	.AFRL = Field<32>(0x40021020),
+	.AFRH = Field<32>(0x40021024),
+};
+stm32f4::regs::_gpio stm32f4::regs::gpiod = {
+	.MODER = Field<32>(0x40020c00),
+	.OTYPER = Field<32>(0x40020c04),
+	.OSPEEDR = Field<32>(0x40020c08),
+	.PUPDR = Field<32>(0x40020c0c),
+	.IDR = Field<32>(0x40020c10),
+	.ODR = Field<32>(0x40020c14),
+	.BSRR = Field<32>(0x40020c18),
+	.LCKR = Field<32>(0x40020c1c),
+	.AFRL = Field<32>(0x40020c20),
+	.AFRH = Field<32>(0x40020c24),
+};
+stm32f4::regs::_gpio stm32f4::regs::gpioc = {
+	.MODER = Field<32>(0x40020800),
+	.OTYPER = Field<32>(0x40020804),
+	.OSPEEDR = Field<32>(0x40020808),
+	.PUPDR = Field<32>(0x4002080c),
+	.IDR = Field<32>(0x40020810),
+	.ODR = Field<32>(0x40020814),
+	.BSRR = Field<32>(0x40020818),
+	.LCKR = Field<32>(0x4002081c),
+	.AFRL = Field<32>(0x40020820),
+	.AFRH = Field<32>(0x40020824),
+};
+stm32f4::regs::_gpio stm32f4::regs::gpiob = {
+	.MODER = Field<32>(0x40020400),
+	.OTYPER = Field<32>(0x40020404),
+	.OSPEEDR = Field<32>(0x40020408),
+	.PUPDR = Field<32>(0x4002040c),
+	.IDR = Field<32>(0x40020410),
+	.ODR = Field<32>(0x40020414),
+	.BSRR = Field<32>(0x40020418),
+	.LCKR = Field<32>(0x4002041c),
+	.AFRL = Field<32>(0x40020420),
+	.AFRH = Field<32>(0x40020424),
+};
+stm32f4::regs::_gpio stm32f4::regs::gpioa = {
+	.MODER = Field<32>(0x40020000),
+	.OTYPER = Field<32>(0x40020004),
+	.OSPEEDR = Field<32>(0x40020008),
+	.PUPDR = Field<32>(0x4002000c),
+	.IDR = Field<32>(0x40020010),
+	.ODR = Field<32>(0x40020014),
+	.BSRR = Field<32>(0x40020018),
+	.LCKR = Field<32>(0x4002001c),
+	.AFRL = Field<32>(0x40020020),
+	.AFRH = Field<32>(0x40020024),
+};
+stm32f4::regs::_i2c stm32f4::regs::i2c3 = {
+	.CR1 = Field<32>(0x40005c00),
+	.CR2 = Field<32>(0x40005c04),
+	.OAR1 = Field<32>(0x40005c08),
+	.OAR2 = Field<32>(0x40005c0c),
+	.DR = Field<32>(0x40005c10),
+	.SR1 = Field<32>(0x40005c14),
+	.SR2 = Field<32>(0x40005c18),
+	.CCR = Field<32>(0x40005c1c),
+	.TRISE = Field<32>(0x40005c20),
+};
+stm32f4::regs::_i2c stm32f4::regs::i2c2 = {
+	.CR1 = Field<32>(0x40005800),
+	.CR2 = Field<32>(0x40005804),
+	.OAR1 = Field<32>(0x40005808),
+	.OAR2 = Field<32>(0x4000580c),
+	.DR = Field<32>(0x40005810),
+	.SR1 = Field<32>(0x40005814),
+	.SR2 = Field<32>(0x40005818),
+	.CCR = Field<32>(0x4000581c),
+	.TRISE = Field<32>(0x40005820),
+};
+stm32f4::regs::_i2c stm32f4::regs::i2c1 = {
+	.CR1 = Field<32>(0x40005400),
+	.CR2 = Field<32>(0x40005404),
+	.OAR1 = Field<32>(0x40005408),
+	.OAR2 = Field<32>(0x4000540c),
+	.DR = Field<32>(0x40005410),
+	.SR1 = Field<32>(0x40005414),
+	.SR2 = Field<32>(0x40005418),
+	.CCR = Field<32>(0x4000541c),
+	.TRISE = Field<32>(0x40005420),
+};
+stm32f4::regs::_i2s2ext stm32f4::regs::i2s2ext = {
+	.CR1 = Field<32>(0x40003400),
+	.CR2 = Field<32>(0x40003404),
+	.SR = Field<32>(0x40003408),
+	.DR = Field<32>(0x4000340c),
+	.CRCPR = Field<32>(0x40003410),
+	.RXCRCR = Field<32>(0x40003414),
+	.TXCRCR = Field<32>(0x40003418),
+	.I2SCFGR = Field<32>(0x4000341c),
+	.I2SPR = Field<32>(0x40003420),
+};
+stm32f4::regs::_i2s3ext stm32f4::regs::i2s3ext = {
+	.CR1 = Field<32>(0x40004000),
+	.CR2 = Field<32>(0x40004004),
+	.SR = Field<32>(0x40004008),
+	.DR = Field<32>(0x4000400c),
+	.CRCPR = Field<32>(0x40004010),
+	.RXCRCR = Field<32>(0x40004014),
+	.TXCRCR = Field<32>(0x40004018),
+	.I2SCFGR = Field<32>(0x4000401c),
+	.I2SPR = Field<32>(0x40004020),
+};
+stm32f4::regs::_spi stm32f4::regs::spi1 = {
+	.CR1 = Field<32>(0x40013000),
+	.CR2 = Field<32>(0x40013004),
+	.SR = Field<32>(0x40013008),
+	.DR = Field<32>(0x4001300c),
+	.CRCPR = Field<32>(0x40013010),
+	.RXCRCR = Field<32>(0x40013014),
+	.TXCRCR = Field<32>(0x40013018),
+	.I2SCFGR = Field<32>(0x4001301c),
+	.I2SPR = Field<32>(0x40013020),
+};
+stm32f4::regs::_spi stm32f4::regs::spi2 = {
+	.CR1 = Field<32>(0x40003800),
+	.CR2 = Field<32>(0x40003804),
+	.SR = Field<32>(0x40003808),
+	.DR = Field<32>(0x4000380c),
+	.CRCPR = Field<32>(0x40003810),
+	.RXCRCR = Field<32>(0x40003814),
+	.TXCRCR = Field<32>(0x40003818),
+	.I2SCFGR = Field<32>(0x4000381c),
+	.I2SPR = Field<32>(0x40003820),
+};
+stm32f4::regs::_spi stm32f4::regs::spi3 = {
+	.CR1 = Field<32>(0x40003c00),
+	.CR2 = Field<32>(0x40003c04),
+	.SR = Field<32>(0x40003c08),
+	.DR = Field<32>(0x40003c0c),
+	.CRCPR = Field<32>(0x40003c10),
+	.RXCRCR = Field<32>(0x40003c14),
+	.TXCRCR = Field<32>(0x40003c18),
+	.I2SCFGR = Field<32>(0x40003c1c),
+	.I2SPR = Field<32>(0x40003c20),
+};
+stm32f4::regs::_spi stm32f4::regs::spi4 = {
+	.CR1 = Field<32>(0x40013400),
+	.CR2 = Field<32>(0x40013404),
+	.SR = Field<32>(0x40013408),
+	.DR = Field<32>(0x4001340c),
+	.CRCPR = Field<32>(0x40013410),
+	.RXCRCR = Field<32>(0x40013414),
+	.TXCRCR = Field<32>(0x40013418),
+	.I2SCFGR = Field<32>(0x4001341c),
+	.I2SPR = Field<32>(0x40013420),
+};
+stm32f4::regs::_spi stm32f4::regs::spi5 = {
+	.CR1 = Field<32>(0x40015000),
+	.CR2 = Field<32>(0x40015004),
+	.SR = Field<32>(0x40015008),
+	.DR = Field<32>(0x4001500c),
+	.CRCPR = Field<32>(0x40015010),
+	.RXCRCR = Field<32>(0x40015014),
+	.TXCRCR = Field<32>(0x40015018),
+	.I2SCFGR = Field<32>(0x4001501c),
+	.I2SPR = Field<32>(0x40015020),
+};
+stm32f4::regs::_nvic stm32f4::regs::nvic = {
+	.ICTR = Field<32>(0xe000e004),
+	.STIR = Field<32>(0xe000ef00),
+	.ISER0 = Field<32>(0xe000e100),
+	.ISER1 = Field<32>(0xe000e104),
+	.ISER2 = Field<32>(0xe000e108),
+	.ICER0 = Field<32>(0xe000e180),
+	.ICER1 = Field<32>(0xe000e184),
+	.ICER2 = Field<32>(0xe000e188),
+	.ISPR0 = Field<32>(0xe000e200),
+	.ISPR1 = Field<32>(0xe000e204),
+	.ISPR2 = Field<32>(0xe000e208),
+	.ICPR0 = Field<32>(0xe000e280),
+	.ICPR1 = Field<32>(0xe000e284),
+	.ICPR2 = Field<32>(0xe000e288),
+	.IABR0 = Field<32>(0xe000e300),
+	.IABR1 = Field<32>(0xe000e304),
+	.IABR2 = Field<32>(0xe000e308),
+	.IPR0 = Field<32>(0xe000e400),
+	.IPR1 = Field<32>(0xe000e404),
+	.IPR2 = Field<32>(0xe000e408),
+	.IPR3 = Field<32>(0xe000e40c),
+	.IPR4 = Field<32>(0xe000e410),
+	.IPR5 = Field<32>(0xe000e414),
+	.IPR6 = Field<32>(0xe000e418),
+	.IPR7 = Field<32>(0xe000e41c),
+	.IPR8 = Field<32>(0xe000e420),
+	.IPR9 = Field<32>(0xe000e424),
+	.IPR10 = Field<32>(0xe000e428),
+	.IPR11 = Field<32>(0xe000e42c),
+	.IPR12 = Field<32>(0xe000e430),
+	.IPR13 = Field<32>(0xe000e434),
+	.IPR14 = Field<32>(0xe000e438),
+	.IPR15 = Field<32>(0xe000e43c),
+	.IPR16 = Field<32>(0xe000e440),
+	.IPR17 = Field<32>(0xe000e444),
+	.IPR18 = Field<32>(0xe000e448),
+	.IPR19 = Field<32>(0xe000e44c),
+};
