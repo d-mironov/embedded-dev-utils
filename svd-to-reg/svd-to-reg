@@ -35,6 +35,14 @@ with open("stm32f411.h", "w") as header, open("stm32f411.cpp", "w") as source:
     # add includes to header file
     header.write("#pragma once\n")
     header.write('#include "register.h"\n\n')
+
+    for peripheral in parser.get_device().peripherals:
+        header.write("#define %s_BASE_ADDRESS 0x%08x\n" % (
+            peripheral.name,
+            peripheral.base_address
+            )
+        )
+
     header.write("namespace stm32f4 {\n")
     header.write("\tnamespace regs {\n")
     # iterate through all perioperals
@@ -47,6 +55,7 @@ with open("stm32f411.h", "w") as header, open("stm32f411.cpp", "w") as source:
                 used.append(name_wo_last)
                 header.write("\t\tstruct _%s {\n" %
                              name.lower()[:len(name) - 1])
+                header.write("\t\t\tuint32_t base_address;\n")
                 for reg in peripheral.registers:
                     # reg.name, reg.address_offset
                     header.write("\t\t\tField<32> %s;\n" % reg.name)
@@ -60,6 +69,7 @@ with open("stm32f411.h", "w") as header, open("stm32f411.cpp", "w") as source:
                          name.lower()))
         else:
             header.write("\t\tstruct _%s {\n" % name.lower())
+            header.write("\t\t\tuint32_t base_address;\n")
             for reg in peripheral.registers:
                 # reg.name, reg.address_offset
                 header.write("\t\t\tField<32> %s;\n" % reg.name)
@@ -73,6 +83,7 @@ with open("stm32f411.h", "w") as header, open("stm32f411.cpp", "w") as source:
                 peripheral.name.lower()
                 )
             )
+        source.write("\t.base_address = 0x%08x,\n" % peripheral.base_address)
         for reg in peripheral.registers:
             source.write("\t.%s = Field<32>(0x%08x),\n" % (
                 reg.name,

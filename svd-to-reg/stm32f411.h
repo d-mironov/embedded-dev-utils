@@ -1,14 +1,64 @@
 #pragma once
 #include "register.h"
 
+#define ADC_Common_BASE_ADDRESS 0x40012300
+#define ADC1_BASE_ADDRESS 0x40012000
+#define CRC_BASE_ADDRESS 0x40023000
+#define DBG_BASE_ADDRESS 0xe0042000
+#define EXTI_BASE_ADDRESS 0x40013c00
+#define FLASH_BASE_ADDRESS 0x40023c00
+#define IWDG_BASE_ADDRESS 0x40003000
+#define OTG_FS_DEVICE_BASE_ADDRESS 0x50000800
+#define OTG_FS_GLOBAL_BASE_ADDRESS 0x50000000
+#define OTG_FS_HOST_BASE_ADDRESS 0x50000400
+#define OTG_FS_PWRCLK_BASE_ADDRESS 0x50000e00
+#define PWR_BASE_ADDRESS 0x40007000
+#define RCC_BASE_ADDRESS 0x40023800
+#define RTC_BASE_ADDRESS 0x40002800
+#define SDIO_BASE_ADDRESS 0x40012c00
+#define SYSCFG_BASE_ADDRESS 0x40013800
+#define TIM1_BASE_ADDRESS 0x40010000
+#define TIM8_BASE_ADDRESS 0x40010400
+#define TIM10_BASE_ADDRESS 0x40014400
+#define TIM11_BASE_ADDRESS 0x40014800
+#define TIM2_BASE_ADDRESS 0x40000000
+#define TIM3_BASE_ADDRESS 0x40000400
+#define TIM4_BASE_ADDRESS 0x40000800
+#define TIM5_BASE_ADDRESS 0x40000c00
+#define TIM9_BASE_ADDRESS 0x40014000
+#define USART1_BASE_ADDRESS 0x40011000
+#define USART2_BASE_ADDRESS 0x40004400
+#define USART6_BASE_ADDRESS 0x40011400
+#define WWDG_BASE_ADDRESS 0x40002c00
+#define DMA2_BASE_ADDRESS 0x40026400
+#define DMA1_BASE_ADDRESS 0x40026000
+#define GPIOH_BASE_ADDRESS 0x40021c00
+#define GPIOE_BASE_ADDRESS 0x40021000
+#define GPIOD_BASE_ADDRESS 0x40020c00
+#define GPIOC_BASE_ADDRESS 0x40020800
+#define GPIOB_BASE_ADDRESS 0x40020400
+#define GPIOA_BASE_ADDRESS 0x40020000
+#define I2C3_BASE_ADDRESS 0x40005c00
+#define I2C2_BASE_ADDRESS 0x40005800
+#define I2C1_BASE_ADDRESS 0x40005400
+#define I2S2ext_BASE_ADDRESS 0x40003400
+#define I2S3ext_BASE_ADDRESS 0x40004000
+#define SPI1_BASE_ADDRESS 0x40013000
+#define SPI2_BASE_ADDRESS 0x40003800
+#define SPI3_BASE_ADDRESS 0x40003c00
+#define SPI4_BASE_ADDRESS 0x40013400
+#define SPI5_BASE_ADDRESS 0x40015000
+#define NVIC_BASE_ADDRESS 0xe000e000
 namespace stm32f4 {
 	namespace regs {
 		struct _adc_common {
+			uint32_t base_address;
 			Field<32> CSR;
 			Field<32> CCR;
 		};
 		extern struct stm32f4::regs::_adc_common adc_common;
 		struct _adc {
+			uint32_t base_address;
 			Field<32> SR;
 			Field<32> CR1;
 			Field<32> CR2;
@@ -32,12 +82,14 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_adc adc1;
 		struct _crc {
+			uint32_t base_address;
 			Field<32> DR;
 			Field<32> IDR;
 			Field<32> CR;
 		};
 		extern struct stm32f4::regs::_crc crc;
 		struct _dbg {
+			uint32_t base_address;
 			Field<32> DBGMCU_IDCODE;
 			Field<32> DBGMCU_CR;
 			Field<32> DBGMCU_APB1_FZ;
@@ -45,6 +97,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_dbg dbg;
 		struct _exti {
+			uint32_t base_address;
 			Field<32> IMR;
 			Field<32> EMR;
 			Field<32> RTSR;
@@ -54,6 +107,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_exti exti;
 		struct _flash {
+			uint32_t base_address;
 			Field<32> ACR;
 			Field<32> KEYR;
 			Field<32> OPTKEYR;
@@ -63,6 +117,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_flash flash;
 		struct _iwdg {
+			uint32_t base_address;
 			Field<32> KR;
 			Field<32> PR;
 			Field<32> RLR;
@@ -70,6 +125,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_iwdg iwdg;
 		struct _otg_fs_device {
+			uint32_t base_address;
 			Field<32> FS_DCFG;
 			Field<32> FS_DCTL;
 			Field<32> FS_DSTS;
@@ -111,6 +167,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_otg_fs_device otg_fs_device;
 		struct _otg_fs_global {
+			uint32_t base_address;
 			Field<32> FS_GOTGCTL;
 			Field<32> FS_GOTGINT;
 			Field<32> FS_GAHBCFG;
@@ -133,6 +190,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_otg_fs_global otg_fs_global;
 		struct _otg_fs_host {
+			uint32_t base_address;
 			Field<32> FS_HCFG;
 			Field<32> HFIR;
 			Field<32> FS_HFNUM;
@@ -175,15 +233,18 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_otg_fs_host otg_fs_host;
 		struct _otg_fs_pwrclk {
+			uint32_t base_address;
 			Field<32> FS_PCGCCTL;
 		};
 		extern struct stm32f4::regs::_otg_fs_pwrclk otg_fs_pwrclk;
 		struct _pwr {
+			uint32_t base_address;
 			Field<32> CR;
 			Field<32> CSR;
 		};
 		extern struct stm32f4::regs::_pwr pwr;
 		struct _rcc {
+			uint32_t base_address;
 			Field<32> CR;
 			Field<32> PLLCFGR;
 			Field<32> CFGR;
@@ -207,6 +268,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_rcc rcc;
 		struct _rtc {
+			uint32_t base_address;
 			Field<32> TR;
 			Field<32> DR;
 			Field<32> CR;
@@ -249,6 +311,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_rtc rtc;
 		struct _sdio {
+			uint32_t base_address;
 			Field<32> POWER;
 			Field<32> CLKCR;
 			Field<32> ARG;
@@ -270,6 +333,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_sdio sdio;
 		struct _syscfg {
+			uint32_t base_address;
 			Field<32> MEMRM;
 			Field<32> PMC;
 			Field<32> EXTICR1;
@@ -280,6 +344,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_syscfg syscfg;
 		struct _tim1 {
+			uint32_t base_address;
 			Field<32> CR1;
 			Field<32> CR2;
 			Field<32> SMCR;
@@ -305,6 +370,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_tim1 tim1;
 		struct _tim8 {
+			uint32_t base_address;
 			Field<32> CR1;
 			Field<32> CR2;
 			Field<32> SMCR;
@@ -330,6 +396,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_tim8 tim8;
 		struct _tim10 {
+			uint32_t base_address;
 			Field<32> CR1;
 			Field<32> DIER;
 			Field<32> SR;
@@ -344,6 +411,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_tim10 tim10;
 		struct _tim11 {
+			uint32_t base_address;
 			Field<32> CR1;
 			Field<32> DIER;
 			Field<32> SR;
@@ -359,6 +427,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_tim11 tim11;
 		struct _tim2 {
+			uint32_t base_address;
 			Field<32> CR1;
 			Field<32> CR2;
 			Field<32> SMCR;
@@ -383,6 +452,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_tim2 tim2;
 		struct _tim3 {
+			uint32_t base_address;
 			Field<32> CR1;
 			Field<32> CR2;
 			Field<32> SMCR;
@@ -406,6 +476,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_tim3 tim3;
 		struct _tim4 {
+			uint32_t base_address;
 			Field<32> CR1;
 			Field<32> CR2;
 			Field<32> SMCR;
@@ -429,6 +500,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_tim4 tim4;
 		struct _tim5 {
+			uint32_t base_address;
 			Field<32> CR1;
 			Field<32> CR2;
 			Field<32> SMCR;
@@ -453,6 +525,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_tim5 tim5;
 		struct _tim9 {
+			uint32_t base_address;
 			Field<32> CR1;
 			Field<32> CR2;
 			Field<32> SMCR;
@@ -470,6 +543,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_tim9 tim9;
 		struct _usart {
+			uint32_t base_address;
 			Field<32> SR;
 			Field<32> DR;
 			Field<32> BRR;
@@ -482,12 +556,14 @@ namespace stm32f4 {
 		extern struct stm32f4::regs::_usart usart2;
 		extern struct stm32f4::regs::_usart usart6;
 		struct _wwdg {
+			uint32_t base_address;
 			Field<32> CR;
 			Field<32> CFR;
 			Field<32> SR;
 		};
 		extern struct stm32f4::regs::_wwdg wwdg;
 		struct _dma {
+			uint32_t base_address;
 			Field<32> LISR;
 			Field<32> HISR;
 			Field<32> LIFCR;
@@ -544,6 +620,7 @@ namespace stm32f4 {
 		extern struct stm32f4::regs::_dma dma2;
 		extern struct stm32f4::regs::_dma dma1;
 		struct _gpio {
+			uint32_t base_address;
 			Field<32> MODER;
 			Field<32> OTYPER;
 			Field<32> OSPEEDR;
@@ -562,6 +639,7 @@ namespace stm32f4 {
 		extern struct stm32f4::regs::_gpio gpiob;
 		extern struct stm32f4::regs::_gpio gpioa;
 		struct _i2c {
+			uint32_t base_address;
 			Field<32> CR1;
 			Field<32> CR2;
 			Field<32> OAR1;
@@ -576,6 +654,7 @@ namespace stm32f4 {
 		extern struct stm32f4::regs::_i2c i2c2;
 		extern struct stm32f4::regs::_i2c i2c1;
 		struct _i2s2ext {
+			uint32_t base_address;
 			Field<32> CR1;
 			Field<32> CR2;
 			Field<32> SR;
@@ -588,6 +667,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_i2s2ext i2s2ext;
 		struct _i2s3ext {
+			uint32_t base_address;
 			Field<32> CR1;
 			Field<32> CR2;
 			Field<32> SR;
@@ -600,6 +680,7 @@ namespace stm32f4 {
 		};
 		extern struct stm32f4::regs::_i2s3ext i2s3ext;
 		struct _spi {
+			uint32_t base_address;
 			Field<32> CR1;
 			Field<32> CR2;
 			Field<32> SR;
@@ -616,6 +697,7 @@ namespace stm32f4 {
 		extern struct stm32f4::regs::_spi spi4;
 		extern struct stm32f4::regs::_spi spi5;
 		struct _nvic {
+			uint32_t base_address;
 			Field<32> ICTR;
 			Field<32> STIR;
 			Field<32> ISER0;

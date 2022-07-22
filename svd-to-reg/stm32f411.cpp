@@ -2,10 +2,12 @@
 #include "stm32f411.h"
 
 stm32f4::regs::_adc_common stm32f4::regs::adc_common = {
+	.base_address = 0x40012300,
 	.CSR = Field<32>(0x40012300),
 	.CCR = Field<32>(0x40012304),
 };
 stm32f4::regs::_adc stm32f4::regs::adc1 = {
+	.base_address = 0x40012000,
 	.SR = Field<32>(0x40012000),
 	.CR1 = Field<32>(0x40012004),
 	.CR2 = Field<32>(0x40012008),
@@ -28,17 +30,20 @@ stm32f4::regs::_adc stm32f4::regs::adc1 = {
 	.DR = Field<32>(0x4001204c),
 };
 stm32f4::regs::_crc stm32f4::regs::crc = {
+	.base_address = 0x40023000,
 	.DR = Field<32>(0x40023000),
 	.IDR = Field<32>(0x40023004),
 	.CR = Field<32>(0x40023008),
 };
 stm32f4::regs::_dbg stm32f4::regs::dbg = {
+	.base_address = 0xe0042000,
 	.DBGMCU_IDCODE = Field<32>(0xe0042000),
 	.DBGMCU_CR = Field<32>(0xe0042004),
 	.DBGMCU_APB1_FZ = Field<32>(0xe0042008),
 	.DBGMCU_APB2_FZ = Field<32>(0xe004200c),
 };
 stm32f4::regs::_exti stm32f4::regs::exti = {
+	.base_address = 0x40013c00,
 	.IMR = Field<32>(0x40013c00),
 	.EMR = Field<32>(0x40013c04),
 	.RTSR = Field<32>(0x40013c08),
@@ -47,6 +52,7 @@ stm32f4::regs::_exti stm32f4::regs::exti = {
 	.PR = Field<32>(0x40013c14),
 };
 stm32f4::regs::_flash stm32f4::regs::flash = {
+	.base_address = 0x40023c00,
 	.ACR = Field<32>(0x40023c00),
 	.KEYR = Field<32>(0x40023c04),
 	.OPTKEYR = Field<32>(0x40023c08),
@@ -55,12 +61,14 @@ stm32f4::regs::_flash stm32f4::regs::flash = {
 	.OPTCR = Field<32>(0x40023c14),
 };
 stm32f4::regs::_iwdg stm32f4::regs::iwdg = {
+	.base_address = 0x40003000,
 	.KR = Field<32>(0x40003000),
 	.PR = Field<32>(0x40003004),
 	.RLR = Field<32>(0x40003008),
 	.SR = Field<32>(0x4000300c),
 };
 stm32f4::regs::_otg_fs_device stm32f4::regs::otg_fs_device = {
+	.base_address = 0x50000800,
 	.FS_DCFG = Field<32>(0x50000800),
 	.FS_DCTL = Field<32>(0x50000804),
 	.FS_DSTS = Field<32>(0x50000808),
@@ -101,6 +109,7 @@ stm32f4::regs::_otg_fs_device stm32f4::regs::otg_fs_device = {
 	.DOEPTSIZ3 = Field<32>(0x50000b70),
 };
 stm32f4::regs::_otg_fs_global stm32f4::regs::otg_fs_global = {
+	.base_address = 0x50000000,
 	.FS_GOTGCTL = Field<32>(0x50000000),
 	.FS_GOTGINT = Field<32>(0x50000004),
 	.FS_GAHBCFG = Field<32>(0x50000008),
@@ -122,6 +131,7 @@ stm32f4::regs::_otg_fs_global stm32f4::regs::otg_fs_global = {
 	.FS_DIEPTXF3 = Field<32>(0x5000010c),
 };
 stm32f4::regs::_otg_fs_host stm32f4::regs::otg_fs_host = {
+	.base_address = 0x50000400,
 	.FS_HCFG = Field<32>(0x50000400),
 	.HFIR = Field<32>(0x50000404),
 	.FS_HFNUM = Field<32>(0x50000408),
@@ -163,13 +173,16 @@ stm32f4::regs::_otg_fs_host stm32f4::regs::otg_fs_host = {
 	.FS_HCTSIZ7 = Field<32>(0x500005f0),
 };
 stm32f4::regs::_otg_fs_pwrclk stm32f4::regs::otg_fs_pwrclk = {
+	.base_address = 0x50000e00,
 	.FS_PCGCCTL = Field<32>(0x50000e00),
 };
 stm32f4::regs::_pwr stm32f4::regs::pwr = {
+	.base_address = 0x40007000,
 	.CR = Field<32>(0x40007000),
 	.CSR = Field<32>(0x40007004),
 };
 stm32f4::regs::_rcc stm32f4::regs::rcc = {
+	.base_address = 0x40023800,
 	.CR = Field<32>(0x40023800),
 	.PLLCFGR = Field<32>(0x40023804),
 	.CFGR = Field<32>(0x40023808),
@@ -192,6 +205,7 @@ stm32f4::regs::_rcc stm32f4::regs::rcc = {
 	.PLLI2SCFGR = Field<32>(0x40023884),
 };
 stm32f4::regs::_rtc stm32f4::regs::rtc = {
+	.base_address = 0x40002800,
 	.TR = Field<32>(0x40002800),
 	.DR = Field<32>(0x40002804),
 	.CR = Field<32>(0x40002808),
@@ -233,6 +247,7 @@ stm32f4::regs::_rtc stm32f4::regs::rtc = {
 	.BKP19R = Field<32>(0x4000289c),
 };
 stm32f4::regs::_sdio stm32f4::regs::sdio = {
+	.base_address = 0x40012c00,
 	.POWER = Field<32>(0x40012c00),
 	.CLKCR = Field<32>(0x40012c04),
 	.ARG = Field<32>(0x40012c08),
@@ -253,6 +268,7 @@ stm32f4::regs::_sdio stm32f4::regs::sdio = {
 	.FIFO = Field<32>(0x40012c80),
 };
 stm32f4::regs::_syscfg stm32f4::regs::syscfg = {
+	.base_address = 0x40013800,
 	.MEMRM = Field<32>(0x40013800),
 	.PMC = Field<32>(0x40013804),
 	.EXTICR1 = Field<32>(0x40013808),
@@ -262,6 +278,7 @@ stm32f4::regs::_syscfg stm32f4::regs::syscfg = {
 	.CMPCR = Field<32>(0x40013820),
 };
 stm32f4::regs::_tim1 stm32f4::regs::tim1 = {
+	.base_address = 0x40010000,
 	.CR1 = Field<32>(0x40010000),
 	.CR2 = Field<32>(0x40010004),
 	.SMCR = Field<32>(0x40010008),
@@ -286,6 +303,7 @@ stm32f4::regs::_tim1 stm32f4::regs::tim1 = {
 	.BDTR = Field<32>(0x40010044),
 };
 stm32f4::regs::_tim8 stm32f4::regs::tim8 = {
+	.base_address = 0x40010400,
 	.CR1 = Field<32>(0x40010400),
 	.CR2 = Field<32>(0x40010404),
 	.SMCR = Field<32>(0x40010408),
@@ -310,6 +328,7 @@ stm32f4::regs::_tim8 stm32f4::regs::tim8 = {
 	.BDTR = Field<32>(0x40010444),
 };
 stm32f4::regs::_tim10 stm32f4::regs::tim10 = {
+	.base_address = 0x40014400,
 	.CR1 = Field<32>(0x40014400),
 	.DIER = Field<32>(0x4001440c),
 	.SR = Field<32>(0x40014410),
@@ -323,6 +342,7 @@ stm32f4::regs::_tim10 stm32f4::regs::tim10 = {
 	.CCR1 = Field<32>(0x40014434),
 };
 stm32f4::regs::_tim11 stm32f4::regs::tim11 = {
+	.base_address = 0x40014800,
 	.CR1 = Field<32>(0x40014800),
 	.DIER = Field<32>(0x4001480c),
 	.SR = Field<32>(0x40014810),
@@ -337,6 +357,7 @@ stm32f4::regs::_tim11 stm32f4::regs::tim11 = {
 	.OR = Field<32>(0x40014850),
 };
 stm32f4::regs::_tim2 stm32f4::regs::tim2 = {
+	.base_address = 0x40000000,
 	.CR1 = Field<32>(0x40000000),
 	.CR2 = Field<32>(0x40000004),
 	.SMCR = Field<32>(0x40000008),
@@ -360,6 +381,7 @@ stm32f4::regs::_tim2 stm32f4::regs::tim2 = {
 	.OR = Field<32>(0x40000050),
 };
 stm32f4::regs::_tim3 stm32f4::regs::tim3 = {
+	.base_address = 0x40000400,
 	.CR1 = Field<32>(0x40000400),
 	.CR2 = Field<32>(0x40000404),
 	.SMCR = Field<32>(0x40000408),
@@ -382,6 +404,7 @@ stm32f4::regs::_tim3 stm32f4::regs::tim3 = {
 	.DMAR = Field<32>(0x4000044c),
 };
 stm32f4::regs::_tim4 stm32f4::regs::tim4 = {
+	.base_address = 0x40000800,
 	.CR1 = Field<32>(0x40000800),
 	.CR2 = Field<32>(0x40000804),
 	.SMCR = Field<32>(0x40000808),
@@ -404,6 +427,7 @@ stm32f4::regs::_tim4 stm32f4::regs::tim4 = {
 	.DMAR = Field<32>(0x4000084c),
 };
 stm32f4::regs::_tim5 stm32f4::regs::tim5 = {
+	.base_address = 0x40000c00,
 	.CR1 = Field<32>(0x40000c00),
 	.CR2 = Field<32>(0x40000c04),
 	.SMCR = Field<32>(0x40000c08),
@@ -427,6 +451,7 @@ stm32f4::regs::_tim5 stm32f4::regs::tim5 = {
 	.OR = Field<32>(0x40000c50),
 };
 stm32f4::regs::_tim9 stm32f4::regs::tim9 = {
+	.base_address = 0x40014000,
 	.CR1 = Field<32>(0x40014000),
 	.CR2 = Field<32>(0x40014004),
 	.SMCR = Field<32>(0x40014008),
@@ -443,6 +468,7 @@ stm32f4::regs::_tim9 stm32f4::regs::tim9 = {
 	.CCR2 = Field<32>(0x40014038),
 };
 stm32f4::regs::_usart stm32f4::regs::usart1 = {
+	.base_address = 0x40011000,
 	.SR = Field<32>(0x40011000),
 	.DR = Field<32>(0x40011004),
 	.BRR = Field<32>(0x40011008),
@@ -452,6 +478,7 @@ stm32f4::regs::_usart stm32f4::regs::usart1 = {
 	.GTPR = Field<32>(0x40011018),
 };
 stm32f4::regs::_usart stm32f4::regs::usart2 = {
+	.base_address = 0x40004400,
 	.SR = Field<32>(0x40004400),
 	.DR = Field<32>(0x40004404),
 	.BRR = Field<32>(0x40004408),
@@ -461,6 +488,7 @@ stm32f4::regs::_usart stm32f4::regs::usart2 = {
 	.GTPR = Field<32>(0x40004418),
 };
 stm32f4::regs::_usart stm32f4::regs::usart6 = {
+	.base_address = 0x40011400,
 	.SR = Field<32>(0x40011400),
 	.DR = Field<32>(0x40011404),
 	.BRR = Field<32>(0x40011408),
@@ -470,11 +498,13 @@ stm32f4::regs::_usart stm32f4::regs::usart6 = {
 	.GTPR = Field<32>(0x40011418),
 };
 stm32f4::regs::_wwdg stm32f4::regs::wwdg = {
+	.base_address = 0x40002c00,
 	.CR = Field<32>(0x40002c00),
 	.CFR = Field<32>(0x40002c04),
 	.SR = Field<32>(0x40002c08),
 };
 stm32f4::regs::_dma stm32f4::regs::dma2 = {
+	.base_address = 0x40026400,
 	.LISR = Field<32>(0x40026400),
 	.HISR = Field<32>(0x40026404),
 	.LIFCR = Field<32>(0x40026408),
@@ -529,6 +559,7 @@ stm32f4::regs::_dma stm32f4::regs::dma2 = {
 	.S7FCR = Field<32>(0x400264cc),
 };
 stm32f4::regs::_dma stm32f4::regs::dma1 = {
+	.base_address = 0x40026000,
 	.LISR = Field<32>(0x40026000),
 	.HISR = Field<32>(0x40026004),
 	.LIFCR = Field<32>(0x40026008),
@@ -583,6 +614,7 @@ stm32f4::regs::_dma stm32f4::regs::dma1 = {
 	.S7FCR = Field<32>(0x400260cc),
 };
 stm32f4::regs::_gpio stm32f4::regs::gpioh = {
+	.base_address = 0x40021c00,
 	.MODER = Field<32>(0x40021c00),
 	.OTYPER = Field<32>(0x40021c04),
 	.OSPEEDR = Field<32>(0x40021c08),
@@ -595,6 +627,7 @@ stm32f4::regs::_gpio stm32f4::regs::gpioh = {
 	.AFRH = Field<32>(0x40021c24),
 };
 stm32f4::regs::_gpio stm32f4::regs::gpioe = {
+	.base_address = 0x40021000,
 	.MODER = Field<32>(0x40021000),
 	.OTYPER = Field<32>(0x40021004),
 	.OSPEEDR = Field<32>(0x40021008),
@@ -607,6 +640,7 @@ stm32f4::regs::_gpio stm32f4::regs::gpioe = {
 	.AFRH = Field<32>(0x40021024),
 };
 stm32f4::regs::_gpio stm32f4::regs::gpiod = {
+	.base_address = 0x40020c00,
 	.MODER = Field<32>(0x40020c00),
 	.OTYPER = Field<32>(0x40020c04),
 	.OSPEEDR = Field<32>(0x40020c08),
@@ -619,6 +653,7 @@ stm32f4::regs::_gpio stm32f4::regs::gpiod = {
 	.AFRH = Field<32>(0x40020c24),
 };
 stm32f4::regs::_gpio stm32f4::regs::gpioc = {
+	.base_address = 0x40020800,
 	.MODER = Field<32>(0x40020800),
 	.OTYPER = Field<32>(0x40020804),
 	.OSPEEDR = Field<32>(0x40020808),
@@ -631,6 +666,7 @@ stm32f4::regs::_gpio stm32f4::regs::gpioc = {
 	.AFRH = Field<32>(0x40020824),
 };
 stm32f4::regs::_gpio stm32f4::regs::gpiob = {
+	.base_address = 0x40020400,
 	.MODER = Field<32>(0x40020400),
 	.OTYPER = Field<32>(0x40020404),
 	.OSPEEDR = Field<32>(0x40020408),
@@ -643,6 +679,7 @@ stm32f4::regs::_gpio stm32f4::regs::gpiob = {
 	.AFRH = Field<32>(0x40020424),
 };
 stm32f4::regs::_gpio stm32f4::regs::gpioa = {
+	.base_address = 0x40020000,
 	.MODER = Field<32>(0x40020000),
 	.OTYPER = Field<32>(0x40020004),
 	.OSPEEDR = Field<32>(0x40020008),
@@ -655,6 +692,7 @@ stm32f4::regs::_gpio stm32f4::regs::gpioa = {
 	.AFRH = Field<32>(0x40020024),
 };
 stm32f4::regs::_i2c stm32f4::regs::i2c3 = {
+	.base_address = 0x40005c00,
 	.CR1 = Field<32>(0x40005c00),
 	.CR2 = Field<32>(0x40005c04),
 	.OAR1 = Field<32>(0x40005c08),
@@ -666,6 +704,7 @@ stm32f4::regs::_i2c stm32f4::regs::i2c3 = {
 	.TRISE = Field<32>(0x40005c20),
 };
 stm32f4::regs::_i2c stm32f4::regs::i2c2 = {
+	.base_address = 0x40005800,
 	.CR1 = Field<32>(0x40005800),
 	.CR2 = Field<32>(0x40005804),
 	.OAR1 = Field<32>(0x40005808),
@@ -677,6 +716,7 @@ stm32f4::regs::_i2c stm32f4::regs::i2c2 = {
 	.TRISE = Field<32>(0x40005820),
 };
 stm32f4::regs::_i2c stm32f4::regs::i2c1 = {
+	.base_address = 0x40005400,
 	.CR1 = Field<32>(0x40005400),
 	.CR2 = Field<32>(0x40005404),
 	.OAR1 = Field<32>(0x40005408),
@@ -688,6 +728,7 @@ stm32f4::regs::_i2c stm32f4::regs::i2c1 = {
 	.TRISE = Field<32>(0x40005420),
 };
 stm32f4::regs::_i2s2ext stm32f4::regs::i2s2ext = {
+	.base_address = 0x40003400,
 	.CR1 = Field<32>(0x40003400),
 	.CR2 = Field<32>(0x40003404),
 	.SR = Field<32>(0x40003408),
@@ -699,6 +740,7 @@ stm32f4::regs::_i2s2ext stm32f4::regs::i2s2ext = {
 	.I2SPR = Field<32>(0x40003420),
 };
 stm32f4::regs::_i2s3ext stm32f4::regs::i2s3ext = {
+	.base_address = 0x40004000,
 	.CR1 = Field<32>(0x40004000),
 	.CR2 = Field<32>(0x40004004),
 	.SR = Field<32>(0x40004008),
@@ -710,6 +752,7 @@ stm32f4::regs::_i2s3ext stm32f4::regs::i2s3ext = {
 	.I2SPR = Field<32>(0x40004020),
 };
 stm32f4::regs::_spi stm32f4::regs::spi1 = {
+	.base_address = 0x40013000,
 	.CR1 = Field<32>(0x40013000),
 	.CR2 = Field<32>(0x40013004),
 	.SR = Field<32>(0x40013008),
@@ -721,6 +764,7 @@ stm32f4::regs::_spi stm32f4::regs::spi1 = {
 	.I2SPR = Field<32>(0x40013020),
 };
 stm32f4::regs::_spi stm32f4::regs::spi2 = {
+	.base_address = 0x40003800,
 	.CR1 = Field<32>(0x40003800),
 	.CR2 = Field<32>(0x40003804),
 	.SR = Field<32>(0x40003808),
@@ -732,6 +776,7 @@ stm32f4::regs::_spi stm32f4::regs::spi2 = {
 	.I2SPR = Field<32>(0x40003820),
 };
 stm32f4::regs::_spi stm32f4::regs::spi3 = {
+	.base_address = 0x40003c00,
 	.CR1 = Field<32>(0x40003c00),
 	.CR2 = Field<32>(0x40003c04),
 	.SR = Field<32>(0x40003c08),
@@ -743,6 +788,7 @@ stm32f4::regs::_spi stm32f4::regs::spi3 = {
 	.I2SPR = Field<32>(0x40003c20),
 };
 stm32f4::regs::_spi stm32f4::regs::spi4 = {
+	.base_address = 0x40013400,
 	.CR1 = Field<32>(0x40013400),
 	.CR2 = Field<32>(0x40013404),
 	.SR = Field<32>(0x40013408),
@@ -754,6 +800,7 @@ stm32f4::regs::_spi stm32f4::regs::spi4 = {
 	.I2SPR = Field<32>(0x40013420),
 };
 stm32f4::regs::_spi stm32f4::regs::spi5 = {
+	.base_address = 0x40015000,
 	.CR1 = Field<32>(0x40015000),
 	.CR2 = Field<32>(0x40015004),
 	.SR = Field<32>(0x40015008),
@@ -765,6 +812,7 @@ stm32f4::regs::_spi stm32f4::regs::spi5 = {
 	.I2SPR = Field<32>(0x40015020),
 };
 stm32f4::regs::_nvic stm32f4::regs::nvic = {
+	.base_address = 0xe000e000,
 	.ICTR = Field<32>(0xe000e004),
 	.STIR = Field<32>(0xe000ef00),
 	.ISER0 = Field<32>(0xe000e100),
